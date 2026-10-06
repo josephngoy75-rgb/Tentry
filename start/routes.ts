@@ -13,6 +13,15 @@ import router from '@adonisjs/core/services/router'
 
 router.on('/').render('pages/home').as('home')
 
+/*
+|--------------------------------------------------------------------------
+| Candidatures (pages publiques)
+|--------------------------------------------------------------------------
+*/
+router.get('/postuler', [controllers.Application, 'create'])
+router.post('/postuler', [controllers.Application, 'store'])
+router.on('/merci').render('pages/applications/thanks').as('thanks')
+
 router
   .group(() => {
     router.get('signup', [controllers.NewAccount, 'create'])
