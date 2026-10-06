@@ -7,6 +7,51 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class ApplicationSchema extends BaseModel {
+  static $columns = ['availability', 'birthDate', 'city', 'country', 'createdAt', 'educationLevel', 'email', 'experienceDescription', 'experienceYears', 'fullName', 'id', 'motivation', 'phone', 'portfolioUrl', 'priority', 'program', 'score', 'scoreBreakdown', 'status', 'updatedAt'] as const
+  $columns = ApplicationSchema.$columns
+  @column()
+  declare availability: string
+  @column.date()
+  declare birthDate: DateTime | null
+  @column()
+  declare city: string | null
+  @column()
+  declare country: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare educationLevel: string
+  @column()
+  declare email: string
+  @column()
+  declare experienceDescription: string | null
+  @column()
+  declare experienceYears: number
+  @column()
+  declare fullName: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare motivation: string
+  @column()
+  declare phone: string | null
+  @column()
+  declare portfolioUrl: string | null
+  @column()
+  declare priority: string
+  @column()
+  declare program: string
+  @column()
+  declare score: number
+  @column()
+  declare scoreBreakdown: any
+  @column()
+  declare status: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
+
 export class UserSchema extends BaseModel {
   static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
   $columns = UserSchema.$columns
