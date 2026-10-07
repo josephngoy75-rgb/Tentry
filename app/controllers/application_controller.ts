@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import Application from '#models/application'
 import { applicationValidator } from '#validators/application'
 import { programs, educationLevels, availabilities } from '#config/programs'
+import { evaluate } from '#services/scoring_service'
 
 export default class ApplicationController {
   /**
@@ -29,15 +30,21 @@ export default class ApplicationController {
   }
 
   /**
-   * Valide puis enregistre la candidature
+   * Valide, calcule le score puis enregistre la candidature
    */
   async store({ request, response, session }: HttpContext) {
     const { birthDate, ...data } = await request.validateUsing(applicationValidator)
+
+    // Qualification : note sur 100, détail par critère et priorité
+    const { score, breakdown, priority } = evaluate({ ...data, birthDate })
 
     try {
       await Application.create({
         ...data,
         birthDate: birthDate ?? null,
+        score,
+        scoreBreakdown: breakdown,
+        priority,
       })
     } catch (error) {
       // Filet de sécurité : doublon d'email passé entre la validation
