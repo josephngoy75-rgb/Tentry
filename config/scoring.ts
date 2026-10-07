@@ -1,5 +1,5 @@
 /**
- * Barème de scoring SKULLVI (total : 100 points).
+ * Barème de scoring Talentry (total : 100 points).
  * Modifier ce fichier suffit pour ajuster la notation :
  * aucun chiffre n'est écrit en dur dans la logique.
  *

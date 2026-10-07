@@ -1,21 +1,44 @@
-@layouts.skullvi({ title: 'SKULLVI — Candidatures' })
-  <main class="mx-auto max-w-3xl px-6 py-20 text-center">
-    <h1 class="font-script text-5xl text-brand-green">Transforme ton savoir en succès</h1>
-    <p class="mt-5 text-lg text-gray-600">
-      Rejoignez SKULLVI comme tuteur, ambassadeur ou créateur de contenus pédagogiques.
-    </p>
+@layouts.talentry({ title: 'Talentry — Le bon talent, la bonne offre' })
+  <main class="mx-auto max-w-4xl px-6 py-20">
+    <div class="text-center">
+      <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
+        Le bon talent,<br />
+        <span class="text-emerald-400">la bonne offre.</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-400">
+        Les entreprises publient leurs offres, les candidats postulent avec leur CV, et Talentry
+        fait ressortir les profils qui correspondent vraiment au poste.
+      </p>
 
-    <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
-      <a href="/postuler" class="btn btn--primary">Postuler maintenant</a>
-      @if(auth.user)
-        <a href="/dashboard" class="btn border border-gray-300 bg-white text-gray-800 hover:bg-gray-50">
-          Espace équipe
-        </a>
-      @else
-        <a href="/login" class="btn border border-gray-300 bg-white text-gray-800 hover:bg-gray-50">
-          Espace équipe
-        </a>
-      @end
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        @if(auth.user)
+          <a href="/mon-espace" class="btn btn--primary">Mon espace</a>
+        @else
+          <a href="/signup" class="btn btn--primary">Créer un compte</a>
+          <a href="/login" class="btn btn--secondary">Connexion</a>
+        @end
+      </div>
+    </div>
+
+    <div class="mt-20 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-2xl border border-slate-700 bg-slate-800/60 p-6">
+        <h2 class="font-bold text-white">Publiez une offre</h2>
+        <p class="mt-2 text-sm text-slate-400">
+          Décrivez le poste, les compétences attendues et l'expérience requise.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-slate-700 bg-slate-800/60 p-6">
+        <h2 class="font-bold text-white">Postulez avec votre CV</h2>
+        <p class="mt-2 text-sm text-slate-400">
+          Votre CV est comparé à l'offre pour mesurer la correspondance.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-slate-700 bg-slate-800/60 p-6">
+        <h2 class="font-bold text-white">Un classement clair</h2>
+        <p class="mt-2 text-sm text-slate-400">
+          Les profils sont classés par score, avec le détail des points obtenus.
+        </p>
+      </div>
     </div>
   </main>
 @end

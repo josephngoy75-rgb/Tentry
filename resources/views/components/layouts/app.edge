@@ -1,28 +1,28 @@
 {{--
-  Navigation principale de l'espace équipe SKULLVI.
+  Navigation principale de l'espace connecté.
   Ajouter une entrée ici pour chaque nouvelle section.
 --}}
 @let(nav = [{ label: 'Candidatures', route: 'dashboard', icon: 'lucide:users' }])
 @let(pageTitle = $props.get('title'))
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ pageTitle ? `${pageTitle} — SKULLVI` : 'SKULLVI' }}</title>
+    <title>{{ pageTitle ? `${pageTitle} — Talentry` : 'Talentry' }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/talentry.css', 'resources/js/app.js'])
     @stack('dumper')
   </head>
   <body>
     <header class="header header--bar">
       <div class="header__inner">
-        @!logo({ size: 44 })
+        @!logo({ size: 28 })
         <div class="header__right">
           @form({ route: 'session.destroy', method: 'POST' })
             <button type="submit" class="btn btn--secondary btn--sm">

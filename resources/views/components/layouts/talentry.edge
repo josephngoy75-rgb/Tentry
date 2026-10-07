@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ $props.get('title', 'Talentry') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    @vite(['resources/css/talentry.css', 'resources/js/app.js'])
+    @stack('dumper')
+  </head>
+  <body class="min-h-screen">
+    <header class="header header--bar">
+      <div class="header__inner">
+        @!logo({ size: 28 })
+        <nav class="header__right">
+          @if(auth.user)
+            <a href="/mon-espace" class="btn btn--primary btn--sm">Mon espace</a>
+          @else
+            <a href="/login" class="btn btn--ghost btn--sm">Connexion</a>
+            <a href="/signup" class="btn btn--primary btn--sm">Créer un compte</a>
+          @end
+        </nav>
+      </div>
+    </header>
+
+    {{{ await $slots.main() }}}
+
+    <footer class="py-8 text-center text-xs" style="color: var(--muted);">
+      2026 © Talentry. Tous droits réservés.
+    </footer>
+
+    @include('partials/flash_alerts')
+  </body>
+</html>

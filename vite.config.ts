@@ -10,7 +10,7 @@ export default defineConfig({
        * Entrypoints of your application. Each entrypoint will
        * result in a separate bundle.
        */
-      entryPoints: ['resources/css/app.css', 'resources/css/skullvi.css', 'resources/js/app.js'],
+      entryPoints: ['resources/css/talentry.css', 'resources/js/app.js'],
 
       /**
        * Paths to watch and reload the browser on file change
