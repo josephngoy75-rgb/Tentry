@@ -22,18 +22,29 @@ router.get('/postuler', [controllers.Application, 'create'])
 router.post('/postuler', [controllers.Application, 'store'])
 router.on('/merci').render('pages/applications/thanks').as('thanks')
 
+/*
+|--------------------------------------------------------------------------
+| Connexion de l'équipe
+|--------------------------------------------------------------------------
+*/
 router
   .group(() => {
-    router.get('signup', [controllers.NewAccount, 'create'])
-    router.post('signup', [controllers.NewAccount, 'store'])
-
     router.get('login', [controllers.Session, 'create'])
     router.post('login', [controllers.Session, 'store'])
   })
   .use(middleware.guest())
 
+/*
+|--------------------------------------------------------------------------
+| Espace équipe SKULLVI (connexion obligatoire)
+| L'inscription est réservée aux admins déjà connectés.
+|--------------------------------------------------------------------------
+*/
 router
   .group(() => {
+    router.get('signup', [controllers.NewAccount, 'create'])
+    router.post('signup', [controllers.NewAccount, 'store'])
+
     router.on('/dashboard').render('pages/dashboard').as('dashboard')
     router.post('logout', [controllers.Session, 'destroy'])
   })
