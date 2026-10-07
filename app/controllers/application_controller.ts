@@ -8,10 +8,23 @@ export default class ApplicationController {
    * Affiche le formulaire de candidature
    */
   async create({ view }: HttpContext) {
+    const programOptions = [
+      { value: '', name: 'Choisir un programme' },
+      ...Object.entries(programs).map(([value, program]) => ({ value, name: program.label })),
+    ]
+    const educationOptions = [
+      { value: '', name: "Choisir un niveau d'études" },
+      ...Object.entries(educationLevels).map(([value, level]) => ({ value, name: level.label })),
+    ]
+    const availabilityOptions = [
+      { value: '', name: 'Choisir une disponibilité' },
+      ...Object.entries(availabilities).map(([value, name]) => ({ value, name })),
+    ]
+
     return view.render('pages/applications/create', {
-      programs,
-      educationLevels,
-      availabilities,
+      programOptions,
+      educationOptions,
+      availabilityOptions,
     })
   }
 

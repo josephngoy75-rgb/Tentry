@@ -1,0 +1,51 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-green: #0b8f3a;
+  --color-brand-green-dark: #087030;
+  --color-brand-orange: #f59a0b;
+  --color-brand-blue: #1b6fb5;
+  --color-brand-red: #e5481a;
+  --color-brand-dark: #0f0f0f;
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-script: 'Pacifico', cursive;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 font-sans text-brand-dark antialiased;
+  }
+}
+
+/*
+ * Les composants du kit (field, input, select, button) génèrent ces classes.
+ * On les redéfinit ici aux couleurs de SKULLVI.
+ */
+@layer components {
+  .field {
+    @apply flex flex-col gap-1.5;
+  }
+  .field__label {
+    @apply text-sm font-medium text-gray-800;
+  }
+  .field__input {
+    @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-brand-dark shadow-sm transition;
+    @apply focus:border-brand-green focus:ring-2 focus:ring-brand-green/30 focus:outline-none;
+  }
+  .field__input[aria-invalid='true'] {
+    @apply border-brand-red focus:border-brand-red focus:ring-brand-red/30;
+  }
+  .field__error {
+    @apply text-sm text-brand-red;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition;
+  }
+  .btn--primary {
+    @apply bg-brand-green text-white hover:bg-brand-green-dark disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn--block {
+    @apply w-full;
+  }
+}

@@ -1,0 +1,122 @@
+@layouts.skullvi({ title: 'Postuler — SKULLVI' })
+  <main class="mx-auto max-w-2xl px-4 py-10">
+    <div class="mb-8 text-center">
+      <h1 class="font-script text-4xl text-brand-green">Rejoignez SKULLVI</h1>
+      <p class="mt-3 text-gray-600">
+        Remplissez ce formulaire. Seuls les champs marqués d'un * sont obligatoires.
+      </p>
+    </div>
+
+    <form
+      method="POST"
+      action="/postuler"
+      class="grid gap-5 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8"
+      x-data="{ submitting: false }"
+      x-on:submit="submitting = true"
+    >
+      {{ csrfField() }}
+
+      <h2 class="border-l-4 border-brand-orange pl-3 text-lg font-semibold">Vos informations</h2>
+
+      @field.root({ name: 'fullName' })
+        @!field.label({ text: 'Nom complet *' })
+        @!input.control({ type: 'text', autocomplete: 'name', placeholder: 'Kossi Mensah' })
+        @!field.error()
+      @end
+
+      <div class="grid gap-5 sm:grid-cols-2">
+        @field.root({ name: 'email' })
+          @!field.label({ text: 'Email *' })
+          @!input.control({ type: 'email', autocomplete: 'email', placeholder: 'vous@exemple.com' })
+          @!field.error()
+        @end
+
+        @field.root({ name: 'phone' })
+          @!field.label({ text: 'Téléphone' })
+          @!input.control({ type: 'tel', autocomplete: 'tel', placeholder: '+228 90 00 00 00' })
+          @!field.error()
+        @end
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2">
+        @field.root({ name: 'country' })
+          @!field.label({ text: 'Pays *' })
+          @!input.control({ type: 'text', autocomplete: 'country-name', placeholder: 'Togo' })
+          @!field.error()
+        @end
+
+        @field.root({ name: 'city' })
+          @!field.label({ text: 'Ville' })
+          @!input.control({ type: 'text', placeholder: 'Lomé' })
+          @!field.error()
+        @end
+      </div>
+
+      @field.root({ name: 'birthDate' })
+        @!field.label({ text: 'Date de naissance' })
+        @!input.control({ type: 'date' })
+        @!field.error()
+      @end
+
+      <h2 class="mt-4 border-l-4 border-brand-blue pl-3 text-lg font-semibold">Votre profil</h2>
+
+      <div class="grid gap-5 sm:grid-cols-2">
+        @field.root({ name: 'program' })
+          @!field.label({ text: 'Programme visé *' })
+          @!select.control({ options: programOptions, class: 'field__input' })
+          @!field.error()
+        @end
+
+        @field.root({ name: 'educationLevel' })
+          @!field.label({ text: "Niveau d'études *" })
+          @!select.control({ options: educationOptions, class: 'field__input' })
+          @!field.error()
+        @end
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2">
+        @field.root({ name: 'experienceYears' })
+          @!field.label({ text: "Années d'expérience *" })
+          @!input.control({ type: 'number', min: '0', max: '40', value: '0' })
+          @!field.error()
+        @end
+
+        @field.root({ name: 'availability' })
+          @!field.label({ text: 'Disponibilité *' })
+          @!select.control({ options: availabilityOptions, class: 'field__input' })
+          @!field.error()
+        @end
+      </div>
+
+      @field.root({ name: 'experienceDescription' })
+        @!field.label({ text: 'Décrivez votre expérience' })
+        @!textarea.control({ rows: '4', class: 'field__input' })
+        @!field.error()
+      @end
+
+      @field.root({ name: 'motivation' })
+        @!field.label({ text: 'Votre motivation * (100 caractères minimum)' })
+        @!textarea.control({
+          rows: '6',
+          class: 'field__input',
+          placeholder: 'Pourquoi voulez-vous rejoindre ce programme ?',
+        })
+        @!field.error()
+      @end
+
+      @field.root({ name: 'portfolioUrl' })
+        @!field.label({ text: 'Lien LinkedIn, site ou portfolio' })
+        @!input.control({ type: 'url', placeholder: 'https://' })
+        @!field.error()
+      @end
+
+      @!button({
+        text: 'Envoyer ma candidature',
+        type: 'submit',
+        block: true,
+        'x-bind:disabled': 'submitting',
+        'x-text': "submitting ? 'Envoi en cours…' : 'Envoyer ma candidature'",
+      })
+    </form>
+  </main>
+@end
