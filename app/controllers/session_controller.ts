@@ -4,8 +4,6 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 /**
  * SessionController handles user authentication and session management.
- * It provides methods for displaying the login page, authenticating users,
- * and logging out.
  */
 export default class SessionController {
   /**
@@ -23,7 +21,7 @@ export default class SessionController {
     const user = await User.verifyCredentials(email, password)
 
     await auth.use('web').login(user)
-    response.redirect().toRoute('dashboard')
+    response.redirect().toRoute('account')
   }
 
   /**

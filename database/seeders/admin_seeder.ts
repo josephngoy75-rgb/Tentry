@@ -7,6 +7,6 @@ export default class extends BaseSeeder {
     const password = process.env.ADMIN_PASSWORD ?? 'ChangeMe2026!'
 
     // updateOrCreate : relancer le seeder ne crée pas de doublon
-    await User.updateOrCreate({ email }, { fullName: 'Équipe SKULLVI', password })
+    await User.updateOrCreate({ email }, { fullName: 'Administrateur', password, role: 'admin' })
   }
 }
