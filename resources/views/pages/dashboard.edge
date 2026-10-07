@@ -73,7 +73,7 @@
               <tr>
                 <td class="table__rank">{{ rankOffset + index + 1 }}</td>
                 <td>
-                  <div class="table__name">{{ application.fullName }}</div>
+                  <a href="/dashboard/{{ application.id }}" class="table__name table__link">{{ application.fullName }}</a>
                   <div class="table__sub">{{ application.email }}</div>
                 </td>
                 <td>{{ programs[application.program]?.label ?? application.program }}</td>

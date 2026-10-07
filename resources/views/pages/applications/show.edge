@@ -1,0 +1,116 @@
+@layouts.app({ title: application.fullName })
+  @let(priorityLabels = { high: 'Prioritaire', medium: 'À examiner', low: 'Faible' })
+  @let(statusLabels = { new: 'Nouveau', reviewed: 'Examiné', accepted: 'Retenu', rejected: 'Refusé' })
+
+  <div class="page">
+    <a href="/dashboard" class="table__sub">← Retour à la liste</a>
+
+    <div class="page__header" style="margin-top: 12px;">
+      <div>
+        <h1 class="page__title">{{ application.fullName }}</h1>
+        <p class="page__description">
+          {{ programs[application.program]?.label ?? application.program }}
+          · reçue le {{ application.createdAt.toFormat('dd/MM/yyyy') }}
+        </p>
+      </div>
+      <div class="detail__score">
+        <span class="detail__score-value">{{ application.score }}</span>
+        <span class="table__sub">/ 100</span>
+        <span class="badge badge--{{ application.priority }}">
+          {{ priorityLabels[application.priority] ?? application.priority }}
+        </span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <div class="panel">
+        <h2 class="section__title">Pourquoi ce score ?</h2>
+        <p class="section__description">Détail des points obtenus pour chaque critère.</p>
+        <div class="bars">
+          @each(line in scoreLines)
+            <div class="bar">
+              <div class="bar__top">
+                <span>{{ line.label }}</span>
+                <span class="bar__points">{{ line.points }} / {{ line.max }}</span>
+              </div>
+              <div class="bar__track">
+                <div class="bar__fill" style="width: {{ line.percent }}%;"></div>
+              </div>
+            </div>
+          @end
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">Statut</h2>
+        <p class="section__description">
+          Statut actuel : <strong>{{ statusLabels[application.status] ?? application.status }}</strong>
+        </p>
+        <form method="POST" action="/dashboard/{{ application.id }}/status" class="status-buttons">
+          {{ csrfField() }}
+          @each((label, key) in statusLabels)
+            <button
+              type="submit"
+              name="status"
+              value="{{ key }}"
+              class="btn btn--sm {{ application.status === key ? 'btn--primary' : 'btn--secondary' }}"
+            >
+              {{ label }}
+            </button>
+          @end
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">Coordonnées</h2>
+        <dl class="facts">
+          <div><dt>Email</dt><dd>{{ application.email }}</dd></div>
+          <div><dt>Téléphone</dt><dd>{{ application.phone ?? '—' }}</dd></div>
+          <div><dt>Pays</dt><dd>{{ application.country }}</dd></div>
+          <div><dt>Ville</dt><dd>{{ application.city ?? '—' }}</dd></div>
+          <div>
+            <dt>Date de naissance</dt>
+            <dd>{{ application.birthDate ? application.birthDate.toFormat('dd/MM/yyyy') : '—' }}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">Profil</h2>
+        <dl class="facts">
+          <div>
+            <dt>Niveau d'études</dt>
+            <dd>{{ educationLevels[application.educationLevel]?.label ?? application.educationLevel }}</dd>
+          </div>
+          <div><dt>Années d'expérience</dt><dd>{{ application.experienceYears }}</dd></div>
+          <div>
+            <dt>Disponibilité</dt>
+            <dd>{{ availabilities[application.availability] ?? application.availability }}</dd>
+          </div>
+          <div>
+            <dt>Lien</dt>
+            <dd>
+              @if(application.portfolioUrl)
+                <a href="{{ application.portfolioUrl }}" target="_blank" rel="noopener noreferrer" class="il">
+                  {{ application.portfolioUrl }}
+                </a>
+              @else
+                —
+              @end
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="panel detail__wide">
+        <h2 class="section__title">Motivation</h2>
+        <p class="detail__text">{{ application.motivation }}</p>
+
+        @if(application.experienceDescription)
+          <h2 class="section__title" style="margin-top: 20px;">Expérience</h2>
+          <p class="detail__text">{{ application.experienceDescription }}</p>
+        @end
+      </div>
+    </div>
+  </div>
+@end

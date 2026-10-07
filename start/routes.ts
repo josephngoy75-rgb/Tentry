@@ -46,6 +46,8 @@ router
     router.post('signup', [controllers.NewAccount, 'store'])
 
     router.get('/dashboard', [controllers.Dashboard, 'index']).as('dashboard')
+    router.get('/dashboard/:id', [controllers.Dashboard, 'show'])
+    router.post('/dashboard/:id/status', [controllers.Dashboard, 'updateStatus'])
     router.post('logout', [controllers.Session, 'destroy'])
   })
   .use(middleware.auth())

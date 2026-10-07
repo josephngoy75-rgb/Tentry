@@ -1099,3 +1099,96 @@ input {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ==========================================================================
+   Fiche détaillée d'une candidature
+   ========================================================================== */
+.table__link {
+  display: block;
+}
+.table__link:hover {
+  color: #0b8f3a;
+  text-decoration: underline;
+}
+.detail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.detail__wide {
+  grid-column: 1 / -1;
+}
+.detail__score {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.detail__score-value {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+.detail__text {
+  margin-top: 8px;
+  white-space: pre-line;
+  line-height: 1.65;
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+.bar__top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  margin-bottom: 5px;
+}
+.bar__points {
+  font-weight: 600;
+}
+.bar__track {
+  height: 8px;
+  background: var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0b8f3a, #f59a0b);
+  border-radius: 999px;
+}
+.status-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+.facts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+.facts dt {
+  color: var(--muted);
+}
+.facts dd {
+  text-align: right;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 720px) {
+  .detail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
