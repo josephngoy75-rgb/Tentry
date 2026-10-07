@@ -5,6 +5,7 @@
 
 export const controllers = {
   Application: () => import('#controllers/application_controller'),
+  Dashboard: () => import('#controllers/dashboard_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Session: () => import('#controllers/session_controller'),
 }
