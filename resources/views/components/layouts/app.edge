@@ -1,36 +1,33 @@
 {{--
-  Top-level app navigation. Add an entry here for every new area of your
-  app, and it shows up in the navigation bar with its active state handled.
+  Navigation principale de l'espace équipe SKULLVI.
+  Ajouter une entrée ici pour chaque nouvelle section.
 --}}
-@let(nav = [{ label: 'Dashboard', route: 'dashboard', icon: 'lucide:house' }])
+@let(nav = [{ label: 'Candidatures', route: 'dashboard', icon: 'lucide:users' }])
 @let(pageTitle = $props.get('title'))
 <!DOCTYPE html>
-<html
-  lang="en-us"
-  data-theme="{{
-    request.plainCookie('app_theme', {
-      defaultValue: 'light',
-      encoded: false,
-    })
-  }}"
->
+<html lang="fr" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ pageTitle ? `${pageTitle} - AdonisJS` : 'AdonisJS — Starter Kit' }}</title>
+    <title>{{ pageTitle ? `${pageTitle} — SKULLVI` : 'SKULLVI' }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
   </head>
   <body>
     <header class="header header--bar">
       <div class="header__inner">
-        @!logo({ size: 28 })
+        @!logo({ size: 44 })
         <div class="header__right">
-          @!themeToggle()
           @form({ route: 'session.destroy', method: 'POST' })
             <button type="submit" class="btn btn--secondary btn--sm">
               @svg('lucide:log-out', { width: 15, height: 15 })
-              Log out
+              Déconnexion
             </button>
           @end
         </div>

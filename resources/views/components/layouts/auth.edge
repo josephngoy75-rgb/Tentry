@@ -1,47 +1,39 @@
 <!DOCTYPE html>
-<html
-  lang="en-us"
-  data-theme="{{
-    request.plainCookie('app_theme', {
-      defaultValue: 'light',
-      encoded: false,
-    })
-  }}"
->
+<html lang="fr" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>AdonisJS — Starter Kit</title>
+    <title>Espace équipe — SKULLVI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
   </head>
   <body>
     <div class="auth">
       <div class="auth__form-col">
-        @!logo({ size: 28 })
+        @!logo({ size: 44 })
         <div class="auth__form-wrap">{{{ await $slots.main() }}}</div>
         <div style="height: 20px;"></div>
       </div>
 
       <aside class="auth__aside">
-        <div class="auth__aside-top">
-          @!themeToggle()
-        </div>
+        <div></div>
 
-        <p class="auth__quote">Auth, kept intentionally minimal so you can build it your way.</p>
+        <p class="auth__quote">Partage. Apprends. Gagne.</p>
 
         <div>
-          <div class="pitch__t">Looking for production-ready auth?</div>
+          <div class="pitch__t">Transforme ton savoir en succès</div>
           <p class="pitch__p">
-            Check out Feature packs, production-ready full-stack components from the creator of AdonisJS.
+            SKULLVI aide les apprenants à réviser, progresser et développer des compétences utiles
+            pour l'école et le monde professionnel.
           </p>
-          <a
-            class="il pitch__a"
-            href="https://plus.adonisjs.com/feature-packs"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore Feature packs →
+          <a class="il pitch__a" href="https://www.skullvi.org" target="_blank" rel="noreferrer">
+            Découvrir SKULLVI →
           </a>
         </div>
       </aside>

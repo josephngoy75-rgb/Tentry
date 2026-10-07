@@ -924,3 +924,53 @@ input {
     padding: 20px;
   }
 }
+
+/* ==========================================================================
+   Thème SKULLVI (surcharge des variables du kit)
+   ========================================================================== */
+:root {
+  --sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Pacifico', cursive;
+  --paper: #f7f8f7;
+  --btn: #0b8f3a;
+  --btn-fg: #ffffff;
+  --ring: rgba(11, 143, 58, 0.25);
+  --ok: #0b8f3a;
+}
+.field__input:focus {
+  border-color: #0b8f3a;
+}
+.header--bar {
+  position: relative;
+  height: 68px;
+  background: #0f0f0f;
+  border-bottom: 0;
+}
+.header--bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0b8f3a, #f59a0b, #1b6fb5);
+}
+.subnav__item[aria-current='page']::after {
+  background: #0b8f3a;
+}
+.auth__aside {
+  background: linear-gradient(160deg, #0f0f0f 55%, #0b3d1f);
+  color: #ffffff;
+  border-left: 0;
+}
+.auth__quote {
+  font-size: 30px;
+  color: #f59a0b;
+}
+.auth__aside .pitch__p {
+  color: #d1d5db;
+}
+.auth__aside .il {
+  color: #ffffff;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+}
