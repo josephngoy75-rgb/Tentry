@@ -1,8 +1,11 @@
 {{--
-  Navigation principale de l'espace connecté.
+  Navigation principale de l'espace connecté, adaptée au rôle.
   Ajouter une entrée ici pour chaque nouvelle section.
 --}}
-@let(nav = [{ label: 'Candidatures', route: 'dashboard', icon: 'lucide:users' }])
+@let(role = auth.user ? auth.user.role : '')
+@let(nav = role === 'admin'
+  ? [{ label: 'Candidatures', route: 'dashboard', icon: 'lucide:users' }]
+  : [{ label: 'Mon espace', route: 'account', icon: 'lucide:house' }])
 @let(pageTitle = $props.get('title'))
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">
@@ -24,6 +27,9 @@
       <div class="header__inner">
         @!logo({ size: 34, light: true })
         <div class="header__right">
+          @if(auth.user)
+            <span style="font-size: 13.5px; color: #d1d5db;">{{ auth.user.fullName }}</span>
+          @end
           @form({ route: 'session.destroy', method: 'POST' })
             <button type="submit" class="btn btn--secondary btn--sm">
               @svg('lucide:log-out', { width: 15, height: 15 })

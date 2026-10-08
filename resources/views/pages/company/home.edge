@@ -1,0 +1,18 @@
+@layouts.app({ title: 'Mon espace' })
+  <div class="page">
+    <div class="page__header">
+      <div>
+        <h1 class="page__title">{{ auth.user.companyName }}</h1>
+        <p class="page__description">Espace recruteur de {{ auth.user.fullName }}.</p>
+      </div>
+    </div>
+
+    <div class="panel" style="text-align: center; color: var(--muted);">
+      <p style="font-weight: 600; color: var(--ink);">Vous n'avez pas encore d'offre</p>
+      <p style="margin-top: 6px;">
+        Vous pourrez ici publier vos offres et consulter les candidats classés par score selon
+        les critères que vous aurez définis.
+      </p>
+    </div>
+  </div>
+@end
