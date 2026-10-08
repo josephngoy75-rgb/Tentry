@@ -1,2 +1,7 @@
-@let(size = $props.get('size', 28))
-<a href="/" aria-label="Talentry" class="logo" style="font-size: {{ size }}px;">Talent<span class="logo__accent">ry</span></a>
+@let(size = $props.get('size', 34))
+@let(light = $props.get('light', false))
+<a
+  href="/"
+  aria-label="Talentry"
+  style="display: inline-flex; font-family: 'Pacifico', cursive; font-size: {{ size }}px; line-height: 1; color: {{ light ? '#ffffff' : '#0b8f3a' }};"
+>Talentry</a>
