@@ -11,7 +11,7 @@ export default class AccountController {
       return response.redirect().toPath('/dashboard')
     }
     if (user.role === 'company') {
-      return view.render('pages/company/home')
+      return response.redirect().toPath('/entreprise/offres')
     }
     return view.render('pages/candidate/home')
   }

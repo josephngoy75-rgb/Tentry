@@ -51,6 +51,25 @@ router
 
 /*
 |--------------------------------------------------------------------------
+| Espace entreprise (rôle company uniquement)
+|--------------------------------------------------------------------------
+*/
+router
+  .group(() => {
+    router
+      .get('/entreprise/offres', [controllers.CompanyOffers, 'index'])
+      .as('company.offers.index')
+    router
+      .get('/entreprise/offres/nouvelle', [controllers.CompanyOffers, 'create'])
+      .as('company.offers.create')
+    router
+      .post('/entreprise/offres', [controllers.CompanyOffers, 'store'])
+      .as('company.offers.store')
+  })
+  .use([middleware.auth(), middleware.role({ roles: ['company'] })])
+
+/*
+|--------------------------------------------------------------------------
 | Administration de la plateforme (rôle admin uniquement)
 |--------------------------------------------------------------------------
 */

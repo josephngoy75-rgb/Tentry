@@ -1,0 +1,57 @@
+@layouts.app({ title: 'Mes offres' })
+  <div class="page">
+    <div class="page__header">
+      <div>
+        <h1 class="page__title">{{ auth.user.companyName }}</h1>
+        <p class="page__description">Vos offres d'emploi et leur état de publication.</p>
+      </div>
+      <div class="page__actions">
+        <a href="/entreprise/offres/nouvelle" class="btn btn--primary">Nouvelle offre</a>
+      </div>
+    </div>
+
+    @if(offers.length)
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Offre</th>
+              <th>Contrat</th>
+              <th>Mode</th>
+              <th>Statut</th>
+              <th>Date limite</th>
+              <th>Créée le</th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(offer in offers)
+              <tr>
+                <td>
+                  <div class="table__name">{{ offer.title }}</div>
+                  <div class="table__sub">{{ offer.location ?? 'Lieu non précisé' }}</div>
+                </td>
+                <td>{{ contractTypes[offer.contractType] ?? offer.contractType }}</td>
+                <td>{{ workModes[offer.workMode] ?? offer.workMode }}</td>
+                <td>
+                  <span class="badge badge--{{ offer.status }}">
+                    {{ offerStatuses[offer.status] ?? offer.status }}
+                  </span>
+                </td>
+                <td>{{ offer.deadline ? offer.deadline.toFormat('dd/MM/yyyy') : '—' }}</td>
+                <td>{{ offer.createdAt.toFormat('dd/MM/yyyy') }}</td>
+              </tr>
+            @end
+          </tbody>
+        </table>
+      </div>
+    @else
+      <div class="panel" style="text-align: center; color: var(--muted);">
+        <p style="font-weight: 600; color: var(--ink);">Vous n'avez pas encore d'offre</p>
+        <p style="margin: 6px 0 16px;">
+          Publiez votre première offre : les candidats seront classés selon vos critères.
+        </p>
+        <a href="/entreprise/offres/nouvelle" class="btn btn--primary">Créer ma première offre</a>
+      </div>
+    @end
+  </div>
+@end

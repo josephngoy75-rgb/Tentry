@@ -1,0 +1,186 @@
+@layouts.app({ title: 'Nouvelle offre' })
+  <div class="page">
+    <a href="/entreprise/offres" class="table__sub">← Mes offres</a>
+
+    <div class="page__header" style="margin-top: 12px;">
+      <div>
+        <h1 class="page__title">Nouvelle offre</h1>
+        <p class="page__description">
+          Plus l'offre est précise, plus le classement des candidats sera pertinent.
+        </p>
+      </div>
+    </div>
+
+    <form
+      method="POST"
+      action="/entreprise/offres"
+      class="form-stack"
+      x-data="{ submitting: false }"
+      x-on:submit="submitting = true"
+    >
+      {{ csrfField() }}
+
+      <div class="panel">
+        <h2 class="section__title">1. L'essentiel</h2>
+        <p class="section__description">Ce que le candidat voit en premier dans la liste des offres.</p>
+
+        <div class="form-section">
+          @field.root({ name: 'title' })
+            @!field.label({ text: "Intitulé du poste *" })
+            @!input.control({ type: 'text', placeholder: 'Développeur web junior' })
+            <p class="hint">Un intitulé clair et courant, sans abréviation interne.</p>
+            @!field.error()
+          @end
+
+          <div class="form-grid">
+            @field.root({ name: 'contractType' })
+              @!field.label({ text: 'Type de contrat *' })
+              @!select.control({ options: contractOptions, class: 'field__input' })
+              @!field.error()
+            @end
+
+            @field.root({ name: 'workMode' })
+              @!field.label({ text: 'Mode de travail *' })
+              @!select.control({ options: workModeOptions, class: 'field__input' })
+              @!field.error()
+            @end
+          </div>
+
+          <div class="form-grid">
+            @field.root({ name: 'location' })
+              @!field.label({ text: 'Lieu' })
+              @!input.control({ type: 'text', placeholder: 'Kinshasa, Gombe' })
+              @!field.error()
+            @end
+
+            @field.root({ name: 'salaryRange' })
+              @!field.label({ text: 'Rémunération' })
+              @!input.control({ type: 'text', placeholder: '800 – 1 200 USD / mois' })
+              <p class="hint">Afficher une fourchette augmente le nombre de candidatures.</p>
+              @!field.error()
+            @end
+          </div>
+
+          @field.root({ name: 'deadline' })
+            @!field.label({ text: 'Date limite de candidature' })
+            @!input.control({ type: 'date' })
+            @!field.error()
+          @end
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">2. Description du poste</h2>
+        <p class="section__description">Quatre rubriques courtes se lisent mieux qu'un long texte.</p>
+
+        <div class="form-section">
+          @field.root({ name: 'summary' })
+            @!field.label({ text: 'À propos du poste *' })
+            @!textarea.control({
+              rows: '4',
+              class: 'field__input',
+              placeholder: "Qui êtes-vous, dans quelle équipe arrive la personne, et pourquoi ce poste est ouvert.",
+            })
+            <p class="hint">50 caractères minimum. Présentez l'entreprise et le contexte en 3 à 5 phrases.</p>
+            @!field.error()
+          @end
+
+          @field.root({ name: 'missions' })
+            @!field.label({ text: 'Missions principales *' })
+            @!textarea.control({
+              rows: '5',
+              class: 'field__input',
+              placeholder: "Une mission par ligne :\n- Développer de nouvelles fonctionnalités\n- Corriger les bugs signalés\n- Participer aux revues de code",
+            })
+            <p class="hint">30 caractères minimum. Commencez chaque ligne par un verbe d'action.</p>
+            @!field.error()
+          @end
+
+          @field.root({ name: 'profile' })
+            @!field.label({ text: 'Profil recherché' })
+            @!textarea.control({
+              rows: '4',
+              class: 'field__input',
+              placeholder: "Qualités humaines, façon de travailler, ce qui fera la différence.",
+            })
+            @!field.error()
+          @end
+
+          @field.root({ name: 'benefits' })
+            @!field.label({ text: 'Avantages' })
+            @!textarea.control({
+              rows: '3',
+              class: 'field__input',
+              placeholder: "Formation, télétravail partiel, assurance, primes…",
+            })
+            @!field.error()
+          @end
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">3. Critères de sélection</h2>
+        <p class="section__description">
+          Ces critères servent à calculer le score et à classer les candidats. Soyez précis : ils
+          sont comparés au CV et aux réponses du candidat.
+        </p>
+
+        <div class="form-section">
+          @field.root({ name: 'requiredSkills' })
+            @!field.label({ text: 'Compétences obligatoires *' })
+            @!textarea.control({
+              rows: '2',
+              class: 'field__input',
+              placeholder: 'JavaScript, SQL, Git',
+            })
+            <p class="hint">Séparées par des virgules. Seulement l'indispensable : 3 à 6 compétences.</p>
+            @!field.error()
+          @end
+
+          @field.root({ name: 'niceSkills' })
+            @!field.label({ text: 'Compétences souhaitables' })
+            @!textarea.control({
+              rows: '2',
+              class: 'field__input',
+              placeholder: 'Docker, TypeScript, anglais technique',
+            })
+            <p class="hint">Un plus, mais qui n'élimine personne.</p>
+            @!field.error()
+          @end
+
+          <div class="form-grid">
+            @field.root({ name: 'minExperienceYears' })
+              @!field.label({ text: "Années d'expérience minimales *" })
+              @!input.control({ type: 'number', min: '0', max: '40', value: '0' })
+              @!field.error()
+            @end
+
+            @field.root({ name: 'educationLevel' })
+              @!field.label({ text: "Niveau d'études minimal" })
+              @!select.control({ options: educationOptions, class: 'field__input' })
+              @!field.error()
+            @end
+          </div>
+
+          @field.root({ name: 'languages' })
+            @!field.label({ text: 'Langues demandées' })
+            @!input.control({ type: 'text', placeholder: 'Français, Anglais' })
+            @!field.error()
+          @end
+        </div>
+      </div>
+
+      <div
+        class="form-actions"
+        x-bind:style="submitting ? 'pointer-events: none; opacity: 0.6;' : ''"
+      >
+        <button type="submit" name="intent" value="publish" class="btn btn--primary">
+          Publier l'offre
+        </button>
+        <button type="submit" name="intent" value="draft" class="btn btn--secondary">
+          Enregistrer en brouillon
+        </button>
+      </div>
+    </form>
+  </div>
+@end
