@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ $props.get('title', 'Talentry') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    @vite(['resources/css/talentry.css', 'resources/js/app.js'])
+    @stack('dumper')
+  </head>
+  <body class="min-h-screen">
+    <header class="bg-brand-dark">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+        @!logo({ size: 34, light: true })
+        <nav class="flex items-center gap-3 text-sm">
+          @if(auth.user)
+            <a href="/mon-espace" class="rounded-lg bg-brand-green px-4 py-2 font-semibold text-white hover:bg-brand-green-dark">
+              Mon espace
+            </a>
+          @else
+            <a href="/login" class="px-3 py-2 text-gray-200 hover:text-white">Connexion</a>
+            <a href="/signup" class="rounded-lg bg-brand-green px-4 py-2 font-semibold text-white hover:bg-brand-green-dark">
+              Créer un compte
+            </a>
+          @end
+        </nav>
+      </div>
+      <div class="h-1 bg-linear-to-r from-brand-green via-brand-orange to-brand-blue"></div>
+    </header>
+
+    {{{ await $slots.main() }}}
+
+    <footer class="py-8 text-center text-xs text-gray-500">
+      2026 © Talentry. Tous droits réservés.
+    </footer>
+
+    @include('partials/flash_alerts')
+  </body>
+</html>

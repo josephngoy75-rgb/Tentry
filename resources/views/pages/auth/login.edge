@@ -1,6 +1,6 @@
 @layouts.auth()
-  <h1 class="auth__title">Espace équipe SKULLVI</h1>
-  <p class="auth__sub">Connectez-vous pour consulter les candidatures.</p>
+  <h1 class="auth__title">Connexion</h1>
+  <p class="auth__sub">Accédez à votre espace Talentry.</p>
   @form({
     route: 'session.store',
     method: 'POST',
@@ -13,7 +13,7 @@
       @!input.control({
         type: 'email',
         autocomplete: 'username',
-        placeholder: 'vous@skullvi.org',
+        placeholder: 'vous@exemple.com',
       })
       @!field.error()
     @end
@@ -35,4 +35,11 @@
       'x-text': "submitting ? 'Connexion…' : 'Se connecter'",
     })
   @end
+
+  <p class="auth__foot">
+    Pas encore de compte ?
+    @link({ route: 'new_account.create', class: 'il' })
+      Créer un compte
+    @end
+  </p>
 @end

@@ -19,7 +19,7 @@
 
 /*
  * Les composants du kit (field, input, select, button) génèrent ces classes.
- * On les redéfinit ici aux couleurs de SKULLVI.
+ * On les redéfinit ici aux couleurs de Talentry.
  */
 @layer components {
   .field {

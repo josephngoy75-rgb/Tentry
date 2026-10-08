@@ -1,5 +1,5 @@
 /**
- * Configuration métier de SKULLVI.
+ * Configuration métier de Talentry.
  * Modifier ce fichier suffit pour ajouter un programme ou changer une option :
  * aucune logique n'est à toucher.
  */

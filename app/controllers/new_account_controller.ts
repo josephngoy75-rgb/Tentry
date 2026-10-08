@@ -4,8 +4,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 /**
  * NewAccountController handles user registration.
- * It provides methods for displaying the signup page and creating
- * new user accounts.
+ * Un compte est soit un candidat, soit une entreprise.
  */
 export default class NewAccountController {
   /**
@@ -18,11 +17,26 @@ export default class NewAccountController {
   /**
    * Create a new user account and authenticate the user
    */
-  async store({ request, response, auth }: HttpContext) {
-    const { fullName, email, password } = await request.validateUsing(signupValidator)
-    const user = await User.create({ fullName, email, password })
+  async store({ request, response, auth, session }: HttpContext) {
+    const { fullName, email, password, role, companyName } =
+      await request.validateUsing(signupValidator)
+
+    // Une entreprise doit indiquer son nom
+    if (role === 'company' && !companyName) {
+      session.flashExcept(['password', 'passwordConfirmation'])
+      session.flashErrors({ companyName: "Le nom de l'entreprise est obligatoire." })
+      return response.redirect().back()
+    }
+
+    const user = await User.create({
+      fullName,
+      email,
+      password,
+      role,
+      companyName: role === 'company' ? (companyName ?? null) : null,
+    })
 
     await auth.use('web').login(user)
-    response.redirect().toRoute('dashboard')
+    response.redirect().toRoute('account')
   }
 }

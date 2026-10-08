@@ -926,11 +926,11 @@ input {
 }
 
 /* ==========================================================================
-   Thème SKULLVI (surcharge des variables du kit)
+   Thème Talentry (surcharge des variables du kit)
    ========================================================================== */
 :root {
   --sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --serif: 'Pacifico', cursive;
+  --serif: 'Poppins', sans-serif;
   --paper: #f7f8f7;
   --btn: #0b8f3a;
   --btn-fg: #ffffff;
@@ -1191,4 +1191,54 @@ input {
   .detail {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+/* Titres en Poppins gras : l'écriture manuscrite est réservée au logo */
+.auth__title,
+.empty h1,
+.pc-lead,
+.auth__quote {
+  font-weight: 700;
+}
+
+/* Choix du type de compte à l'inscription */
+.role-choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.role-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.role-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.role-card:hover {
+  border-color: #9ca3af;
+}
+.role-card:focus-within,
+.role-card--active {
+  border-color: #0b8f3a;
+  box-shadow: 0 0 0 3px rgba(11, 143, 58, 0.2);
+}
+.role-card__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.role-card__text {
+  font-size: 12.5px;
+  color: var(--muted);
 }

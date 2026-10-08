@@ -1,8 +1,7 @@
-@let(size = $props.get('size', 44))
+@let(size = $props.get('size', 34))
+@let(light = $props.get('light', false))
 <a
   href="/"
-  aria-label="SKULLVI"
-  style="display: inline-flex; align-items: center; background: #0f0f0f; border-radius: 10px; padding: 4px 12px;"
->
-  <img src="/images/logo.png" alt="SKULLVI" style="height: {{ size }}px; width: auto;" />
-</a>
+  aria-label="Talentry"
+  style="display: inline-flex; font-family: 'Pacifico', cursive; font-size: {{ size }}px; line-height: 1; color: {{ light ? '#ffffff' : '#0b8f3a' }};"
+>Talentry</a>

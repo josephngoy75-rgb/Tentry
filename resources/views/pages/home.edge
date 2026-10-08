@@ -1,19 +1,20 @@
-@layouts.skullvi({ title: 'SKULLVI — Candidatures' })
+@layouts.talentry({ title: 'Talentry — Le bon talent, la bonne offre' })
   <main class="mx-auto max-w-3xl px-6 py-20 text-center">
-    <h1 class="font-script text-5xl text-brand-green">Transforme ton savoir en succès</h1>
+    <h1 class="text-4xl font-extrabold tracking-tight text-brand-dark sm:text-5xl">
+      Le bon talent, <span class="text-brand-green">la bonne offre</span>
+    </h1>
     <p class="mt-5 text-lg text-gray-600">
-      Rejoignez SKULLVI comme tuteur, ambassadeur ou créateur de contenus pédagogiques.
+      Les entreprises publient leurs offres, les candidats postulent avec leur CV, et Talentry
+      fait ressortir les profils qui correspondent vraiment au poste.
     </p>
 
     <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
-      <a href="/postuler" class="btn btn--primary">Postuler maintenant</a>
       @if(auth.user)
-        <a href="/dashboard" class="btn border border-gray-300 bg-white text-gray-800 hover:bg-gray-50">
-          Espace équipe
-        </a>
+        <a href="/mon-espace" class="btn btn--primary">Mon espace</a>
       @else
+        <a href="/signup" class="btn btn--primary">Créer un compte</a>
         <a href="/login" class="btn border border-gray-300 bg-white text-gray-800 hover:bg-gray-50">
-          Espace équipe
+          Connexion
         </a>
       @end
     </div>

@@ -8,7 +8,28 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class ApplicationSchema extends BaseModel {
-  static $columns = ['availability', 'birthDate', 'city', 'country', 'createdAt', 'educationLevel', 'email', 'experienceDescription', 'experienceYears', 'fullName', 'id', 'motivation', 'phone', 'portfolioUrl', 'priority', 'program', 'score', 'scoreBreakdown', 'status', 'updatedAt'] as const
+  static $columns = [
+    'availability',
+    'birthDate',
+    'city',
+    'country',
+    'createdAt',
+    'educationLevel',
+    'email',
+    'experienceDescription',
+    'experienceYears',
+    'fullName',
+    'id',
+    'motivation',
+    'phone',
+    'portfolioUrl',
+    'priority',
+    'program',
+    'score',
+    'scoreBreakdown',
+    'status',
+    'updatedAt',
+  ] as const
   $columns = ApplicationSchema.$columns
   @column()
   declare availability: string
@@ -53,8 +74,19 @@ export class ApplicationSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
+  static $columns = [
+    'companyName',
+    'createdAt',
+    'email',
+    'fullName',
+    'id',
+    'password',
+    'role',
+    'updatedAt',
+  ] as const
   $columns = UserSchema.$columns
+  @column()
+  declare companyName: string | null
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
   @column()
@@ -65,6 +97,8 @@ export class UserSchema extends BaseModel {
   declare id: number
   @column({ serializeAs: null })
   declare password: string
+  @column()
+  declare role: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

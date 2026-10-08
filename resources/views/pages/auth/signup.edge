@@ -1,29 +1,57 @@
 @layouts.auth()
-  <h1 class="auth__title">Create your account</h1>
-  <p class="auth__sub">Start building with the starter kit.</p>
+  @let(initialRole = old('role') === 'company' ? 'company' : 'candidate')
+
+  <h1 class="auth__title">Créer un compte</h1>
+  <p class="auth__sub">Rejoignez Talentry en quelques secondes.</p>
   @form({
     route: 'new_account.store',
     method: 'POST',
     class: 'auth__form',
-    'x-data': '{ submitting: false }',
+    'x-data': `{ role: '${initialRole}', submitting: false }`,
     'x-on:submit': 'submitting = true',
   })
-    @field.root({ name: 'fullName' })
-      @!field.label({ text: 'Full name' })
-      @!input.control({ autocomplete: 'name', placeholder: 'Ada Lovelace' })
+    @field.root({ name: 'role' })
+      @!field.label({ text: 'Je suis…' })
+      <div class="role-choice">
+        <label class="role-card" x-bind:class="role === 'candidate' ? 'role-card--active' : ''">
+          <input type="radio" name="role" value="candidate" x-model="role" />
+          <span class="role-card__title">Candidat</span>
+          <span class="role-card__text">Je cherche un poste</span>
+        </label>
+        <label class="role-card" x-bind:class="role === 'company' ? 'role-card--active' : ''">
+          <input type="radio" name="role" value="company" x-model="role" />
+          <span class="role-card__title">Entreprise</span>
+          <span class="role-card__text">Je recrute</span>
+        </label>
+      </div>
       @!field.error()
     @end
+
+    @field.root({ name: 'fullName' })
+      @!field.label({ text: 'Nom complet' })
+      @!input.control({ autocomplete: 'name', placeholder: 'Kossi Mensah' })
+      @!field.error()
+    @end
+
+    <div x-show="role === 'company'" x-cloak>
+      @field.root({ name: 'companyName' })
+        @!field.label({ text: "Nom de l'entreprise" })
+        @!input.control({ placeholder: 'Ma Société SARL' })
+        @!field.error()
+      @end
+    </div>
+
     @field.root({ name: 'email' })
       @!field.label({ text: 'Email' })
       @!input.control({
         type: 'email',
         autocomplete: 'email',
-        placeholder: 'you@example.com',
+        placeholder: 'vous@exemple.com',
       })
       @!field.error()
     @end
     @field.root({ name: 'password' })
-      @!field.label({ text: 'Password' })
+      @!field.label({ text: 'Mot de passe (8 caractères minimum)' })
       @!input.control({
         type: 'password',
         autocomplete: 'new-password',
@@ -32,7 +60,7 @@
       @!field.error()
     @end
     @field.root({ name: 'passwordConfirmation' })
-      @!field.label({ text: 'Confirm password' })
+      @!field.label({ text: 'Confirmez le mot de passe' })
       @!input.control({
         type: 'password',
         autocomplete: 'new-password',
@@ -41,21 +69,19 @@
       @!field.error()
     @end
     @!button({
-      text: 'Create account',
+      text: 'Créer mon compte',
       type: 'submit',
       block: true,
       style: 'margin-top: 4px;',
       'x-bind:disabled': 'submitting',
-      'x-text': "submitting ? 'One moment…' : 'Create account'",
+      'x-text': "submitting ? 'Création…' : 'Créer mon compte'",
     })
   @end
 
   <p class="auth__foot">
-    
-    Already have an account?
-
+    Vous avez déjà un compte ?
     @link({ route: 'session.create', class: 'il' })
-      Sign in
+      Se connecter
     @end
   </p>
 @end

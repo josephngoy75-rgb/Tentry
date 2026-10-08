@@ -1,8 +1,8 @@
-@layouts.skullvi({ title: 'Postuler — SKULLVI' })
+@layouts.talentry({ title: 'Postuler — Talentry' })
   <main class="mx-auto max-w-2xl px-4 py-10">
     <div class="mb-8 text-center">
-      <h1 class="font-script text-4xl text-brand-green">Rejoignez SKULLVI</h1>
-      <p class="mt-3 text-gray-600">
+      <h1 class="text-3xl font-extrabold text-white">Rejoignez Talentry</h1>
+      <p class="mt-3 text-slate-400">
         Remplissez ce formulaire. Seuls les champs marqués d'un * sont obligatoires.
       </p>
     </div>
@@ -10,13 +10,13 @@
     <form
       method="POST"
       action="/postuler"
-      class="grid gap-5 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8"
+      class="grid gap-5 rounded-2xl border border-slate-700 bg-slate-800/60 p-6 sm:p-8"
       x-data="{ submitting: false }"
       x-on:submit="submitting = true"
     >
       {{ csrfField() }}
 
-      <h2 class="border-l-4 border-brand-orange pl-3 text-lg font-semibold">Vos informations</h2>
+      <h2 class="border-l-4 border-emerald-400 pl-3 text-lg font-semibold">Vos informations</h2>
 
       @field.root({ name: 'fullName' })
         @!field.label({ text: 'Nom complet *' })
@@ -58,7 +58,7 @@
         @!field.error()
       @end
 
-      <h2 class="mt-4 border-l-4 border-brand-blue pl-3 text-lg font-semibold">Votre profil</h2>
+      <h2 class="mt-4 border-l-4 border-indigo-500 pl-3 text-lg font-semibold">Votre profil</h2>
 
       <div class="grid gap-5 sm:grid-cols-2">
         @field.root({ name: 'program' })
