@@ -13,6 +13,11 @@ import router from '@adonisjs/core/services/router'
 
 router.on('/').render('pages/home').as('home')
 
+/*
+|--------------------------------------------------------------------------
+| Offres d'emploi (pages publiques)
+|--------------------------------------------------------------------------
+*/
 router.get('/offres', [controllers.PublicOffers, 'index']).as('offers.index')
 router.get('/offres/:id', [controllers.PublicOffers, 'show']).as('offers.show')
 
@@ -68,6 +73,12 @@ router
     router
       .post('/entreprise/offres', [controllers.CompanyOffers, 'store'])
       .as('company.offers.store')
+    router
+      .get('/entreprise/offres/:id/modifier', [controllers.CompanyOffers, 'edit'])
+      .as('company.offers.edit')
+    router.post('/entreprise/offres/:id', [controllers.CompanyOffers, 'update'])
+    router.post('/entreprise/offres/:id/statut', [controllers.CompanyOffers, 'updateStatus'])
+    router.post('/entreprise/offres/:id/dupliquer', [controllers.CompanyOffers, 'duplicate'])
   })
   .use([middleware.auth(), middleware.role({ roles: ['company'] })])
 

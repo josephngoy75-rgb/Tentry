@@ -1,0 +1,184 @@
+@let(values = $props.get('values', {}))
+@let(mode = $props.get('mode', 'create'))
+<form
+  method="POST"
+  action="{{ $props.get('action') }}"
+  class="form-stack"
+  x-data="{ submitting: false }"
+  x-on:submit="submitting = true"
+>
+  {{ csrfField() }}
+
+  <div class="panel">
+    <h2 class="section__title">1. L'essentiel</h2>
+    <p class="section__description">Ce que le candidat voit en premier dans la liste des offres.</p>
+
+    <div class="form-section">
+      @field.root({ name: 'title' })
+        @!field.label({ text: 'Intitulé du poste *' })
+        @!input.control({ type: 'text', placeholder: 'Développeur web junior', value: values.title })
+        <p class="hint">Un intitulé clair et courant, sans abréviation interne.</p>
+        @!field.error()
+      @end
+
+      <div class="form-grid">
+        @field.root({ name: 'contractType' })
+          @!field.label({ text: 'Type de contrat *' })
+          @!select.control({ options: $props.get('contractOptions'), class: 'field__input' })
+          @!field.error()
+        @end
+
+        @field.root({ name: 'workMode' })
+          @!field.label({ text: 'Mode de travail *' })
+          @!select.control({ options: $props.get('workModeOptions'), class: 'field__input' })
+          @!field.error()
+        @end
+      </div>
+
+      <div class="form-grid">
+        @field.root({ name: 'location' })
+          @!field.label({ text: 'Lieu' })
+          @!input.control({ type: 'text', placeholder: 'Kinshasa, Gombe', value: values.location })
+          @!field.error()
+        @end
+
+        @field.root({ name: 'salaryRange' })
+          @!field.label({ text: 'Rémunération' })
+          @!input.control({ type: 'text', placeholder: '800 – 1 200 USD / mois', value: values.salaryRange })
+          <p class="hint">Afficher une fourchette augmente le nombre de candidatures.</p>
+          @!field.error()
+        @end
+      </div>
+
+      @field.root({ name: 'deadline' })
+        @!field.label({ text: 'Date limite de candidature' })
+        @!input.control({ type: 'date', value: values.deadline })
+        @!field.error()
+      @end
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 class="section__title">2. Description du poste</h2>
+    <p class="section__description">Quatre rubriques courtes se lisent mieux qu'un long texte.</p>
+
+    <div class="form-section">
+      @field.root({ name: 'summary' })
+        @!field.label({ text: 'À propos du poste *' })
+        @!textarea.control({
+          rows: '4',
+          class: 'field__input',
+          placeholder: "Qui êtes-vous, dans quelle équipe arrive la personne, et pourquoi ce poste est ouvert.",
+          value: values.summary,
+        })
+        <p class="hint">50 caractères minimum. Présentez l'entreprise et le contexte en 3 à 5 phrases.</p>
+        @!field.error()
+      @end
+
+      @field.root({ name: 'missions' })
+        @!field.label({ text: 'Missions principales *' })
+        @!textarea.control({
+          rows: '5',
+          class: 'field__input',
+          placeholder: "Une mission par ligne :\n- Développer de nouvelles fonctionnalités\n- Corriger les bugs signalés\n- Participer aux revues de code",
+          value: values.missions,
+        })
+        <p class="hint">30 caractères minimum. Commencez chaque ligne par un verbe d'action.</p>
+        @!field.error()
+      @end
+
+      @field.root({ name: 'profile' })
+        @!field.label({ text: 'Profil recherché' })
+        @!textarea.control({
+          rows: '4',
+          class: 'field__input',
+          placeholder: "Qualités humaines, façon de travailler, ce qui fera la différence.",
+          value: values.profile,
+        })
+        @!field.error()
+      @end
+
+      @field.root({ name: 'benefits' })
+        @!field.label({ text: 'Avantages' })
+        @!textarea.control({
+          rows: '3',
+          class: 'field__input',
+          placeholder: "Formation, télétravail partiel, assurance, primes…",
+          value: values.benefits,
+        })
+        @!field.error()
+      @end
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2 class="section__title">3. Critères de sélection</h2>
+    <p class="section__description">
+      Ces critères servent à calculer le score et à classer les candidats. Soyez précis : ils
+      sont comparés au CV et aux réponses du candidat.
+    </p>
+
+    <div class="form-section">
+      @field.root({ name: 'requiredSkills' })
+        @!field.label({ text: 'Compétences obligatoires *' })
+        @!textarea.control({
+          rows: '2',
+          class: 'field__input',
+          placeholder: 'JavaScript, SQL, Git',
+          value: values.requiredSkills,
+        })
+        <p class="hint">Séparées par des virgules. Seulement l'indispensable : 3 à 6 compétences.</p>
+        @!field.error()
+      @end
+
+      @field.root({ name: 'niceSkills' })
+        @!field.label({ text: 'Compétences souhaitables' })
+        @!textarea.control({
+          rows: '2',
+          class: 'field__input',
+          placeholder: 'Docker, TypeScript, anglais technique',
+          value: values.niceSkills,
+        })
+        <p class="hint">Un plus, mais qui n'élimine personne.</p>
+        @!field.error()
+      @end
+
+      <div class="form-grid">
+        @field.root({ name: 'minExperienceYears' })
+          @!field.label({ text: "Années d'expérience minimales *" })
+          @!input.control({ type: 'number', min: '0', max: '40', value: values.minExperienceYears ?? '0' })
+          @!field.error()
+        @end
+
+        @field.root({ name: 'educationLevel' })
+          @!field.label({ text: "Niveau d'études minimal" })
+          @!select.control({ options: $props.get('educationOptions'), class: 'field__input' })
+          @!field.error()
+        @end
+      </div>
+
+      @field.root({ name: 'languages' })
+        @!field.label({ text: 'Langues demandées' })
+        @!input.control({ type: 'text', placeholder: 'Français, Anglais', value: values.languages })
+        @!field.error()
+      @end
+    </div>
+  </div>
+
+  <div
+    class="form-actions"
+    x-bind:style="submitting ? 'pointer-events: none; opacity: 0.6;' : ''"
+  >
+    @if(mode === 'edit')
+      <button type="submit" class="btn btn--primary">Enregistrer les modifications</button>
+      <a href="/entreprise/offres" class="btn btn--secondary">Annuler</a>
+    @else
+      <button type="submit" name="intent" value="publish" class="btn btn--primary">
+        Publier l'offre
+      </button>
+      <button type="submit" name="intent" value="draft" class="btn btn--secondary">
+        Enregistrer en brouillon
+      </button>
+    @end
+  </div>
+</form>

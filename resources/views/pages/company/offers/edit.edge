@@ -1,19 +1,20 @@
-@layouts.app({ title: 'Nouvelle offre' })
+@layouts.app({ title: 'Modifier l\'offre' })
   <div class="page">
     <a href="/entreprise/offres" class="table__sub">← Mes offres</a>
 
     <div class="page__header" style="margin-top: 12px;">
       <div>
-        <h1 class="page__title">Nouvelle offre</h1>
+        <h1 class="page__title">Modifier l'offre</h1>
         <p class="page__description">
-          Plus l'offre est précise, plus le classement des candidats sera pertinent.
+          Statut actuel :
+          <span class="badge badge--{{ offer.status }}">{{ offerStatuses[offer.status] ?? offer.status }}</span>
         </p>
       </div>
     </div>
 
     @!offerForm({
-      action: '/entreprise/offres',
-      mode: 'create',
+      action: `/entreprise/offres/${offer.id}`,
+      mode: 'edit',
       values: values,
       contractOptions: contractOptions,
       workModeOptions: workModeOptions,

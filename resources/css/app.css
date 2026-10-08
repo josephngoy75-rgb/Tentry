@@ -1294,3 +1294,14 @@ textarea.field__input {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Boutons d'action dans la liste des offres */
+.table__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.table__actions form {
+  display: inline;
+}

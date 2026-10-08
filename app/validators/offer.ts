@@ -5,14 +5,11 @@ import { educationLevels } from '#config/programs'
 import type { EducationLevel } from '#config/programs'
 
 /**
- * Validateur du formulaire de création d'une offre.
+ * Champs communs à la création et à la modification d'une offre.
  * Les compétences arrivent en texte (séparées par des virgules) :
  * elles sont transformées en liste dans le contrôleur.
  */
-export const offerValidator = vine.create({
-  // "draft" = enregistrer en brouillon, "publish" = publier tout de suite
-  intent: vine.enum(['draft', 'publish'] as const),
-
+const offerFields = () => ({
   title: vine.string().trim().minLength(5).maxLength(150),
   contractType: vine.enum(Object.keys(contractTypes) as ContractType[]),
   workMode: vine.enum(Object.keys(workModes) as WorkMode[]),
@@ -32,4 +29,19 @@ export const offerValidator = vine.create({
     .enum((Object.keys(educationLevels) as EducationLevel[]).filter((key) => key !== 'other'))
     .optional(),
   languages: vine.string().trim().maxLength(300).optional(),
+})
+
+/**
+ * Création : "draft" = enregistrer en brouillon, "publish" = publier tout de suite.
+ */
+export const offerValidator = vine.create({
+  intent: vine.enum(['draft', 'publish'] as const),
+  ...offerFields(),
+})
+
+/**
+ * Modification : le statut se change par une action séparée.
+ */
+export const offerUpdateValidator = vine.create({
+  ...offerFields(),
 })

@@ -69,7 +69,7 @@ export default class PublicOffersController {
    * Détail d'une offre (404 si elle n'est pas publiée ou si elle est expirée)
    */
   async show({ params, view }: HttpContext) {
-    const offer = await openOffers().where('id', params.id).firstOrFail()
+    const offer = await openOffers().where('id', Number(params.id) || 0).firstOrFail()
     const company = await User.findOrFail(offer.userId)
 
     return view.render('pages/offers/show', {

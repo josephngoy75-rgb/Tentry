@@ -19,6 +19,10 @@ export type ScannedRoutes = {
     'company.offers.index': { paramsTuple?: []; params?: {} }
     'company.offers.create': { paramsTuple?: []; params?: {} }
     'company.offers.store': { paramsTuple?: []; params?: {} }
+    'company.offers.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company_offers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company_offers.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company_offers.duplicate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -34,6 +38,7 @@ export type ScannedRoutes = {
     'account': { paramsTuple?: []; params?: {} }
     'company.offers.index': { paramsTuple?: []; params?: {} }
     'company.offers.create': { paramsTuple?: []; params?: {} }
+    'company.offers.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -48,6 +53,7 @@ export type ScannedRoutes = {
     'account': { paramsTuple?: []; params?: {} }
     'company.offers.index': { paramsTuple?: []; params?: {} }
     'company.offers.create': { paramsTuple?: []; params?: {} }
+    'company.offers.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -57,6 +63,9 @@ export type ScannedRoutes = {
     'session.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }
     'company.offers.store': { paramsTuple?: []; params?: {} }
+    'company_offers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company_offers.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company_offers.duplicate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
