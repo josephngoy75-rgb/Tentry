@@ -13,6 +13,9 @@ import router from '@adonisjs/core/services/router'
 
 router.on('/').render('pages/home').as('home')
 
+router.get('/offres', [controllers.PublicOffers, 'index']).as('offers.index')
+router.get('/offres/:id', [controllers.PublicOffers, 'show']).as('offers.show')
+
 /*
 |--------------------------------------------------------------------------
 | Candidatures (pages publiques, ancien parcours : remplacé par les offres)

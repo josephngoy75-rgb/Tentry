@@ -4,7 +4,7 @@ import type { HttpContext } from '@adonisjs/core/http'
  * Point d'entrée après connexion : chaque rôle est dirigé vers son espace.
  */
 export default class AccountController {
-  async index({ auth, view, response }: HttpContext) {
+  async index({ auth, response }: HttpContext) {
     const user = auth.getUserOrFail()
 
     if (user.role === 'admin') {
@@ -13,6 +13,6 @@ export default class AccountController {
     if (user.role === 'company') {
       return response.redirect().toPath('/entreprise/offres')
     }
-    return view.render('pages/candidate/home')
+    return response.redirect().toPath('/offres')
   }
 }

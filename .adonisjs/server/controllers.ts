@@ -9,5 +9,6 @@ export const controllers = {
   CompanyOffers: () => import('#controllers/company_offers_controller'),
   Dashboard: () => import('#controllers/dashboard_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
+  PublicOffers: () => import('#controllers/public_offers_controller'),
   Session: () => import('#controllers/session_controller'),
 }
