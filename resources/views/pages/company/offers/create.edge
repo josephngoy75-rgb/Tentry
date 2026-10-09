@@ -1,0 +1,23 @@
+@layouts.app({ title: 'Nouvelle offre' })
+  <div class="page">
+    <a href="/entreprise/offres" class="table__sub">← Mes offres</a>
+
+    <div class="page__header" style="margin-top: 12px;">
+      <div>
+        <h1 class="page__title">Nouvelle offre</h1>
+        <p class="page__description">
+          Plus l'offre est précise, plus le classement des candidats sera pertinent.
+        </p>
+      </div>
+    </div>
+
+    @!offerForm({
+      action: '/entreprise/offres',
+      mode: 'create',
+      values: values,
+      contractOptions: contractOptions,
+      workModeOptions: workModeOptions,
+      educationOptions: educationOptions,
+    })
+  </div>
+@end

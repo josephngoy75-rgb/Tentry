@@ -3,9 +3,12 @@
   Ajouter une entrée ici pour chaque nouvelle section.
 --}}
 @let(role = auth.user ? auth.user.role : '')
-@let(nav = role === 'admin'
-  ? [{ label: 'Candidatures', route: 'dashboard', icon: 'lucide:users' }]
-  : [{ label: 'Mon espace', route: 'account', icon: 'lucide:house' }])
+@let(navByRole = {
+  admin: [{ label: 'Candidatures', route: 'dashboard', icon: 'lucide:users' }],
+  company: [{ label: 'Mes offres', route: 'company.offers.index', icon: 'lucide:briefcase' }],
+  candidate: [{ label: 'Offres', route: 'offers.index', icon: 'lucide:search' }],
+})
+@let(nav = navByRole[role] ?? [])
 @let(pageTitle = $props.get('title'))
 <!DOCTYPE html>
 <html lang="fr" data-theme="light">

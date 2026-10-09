@@ -73,6 +73,75 @@ export class ApplicationSchema extends BaseModel {
   declare updatedAt: DateTime
 }
 
+export class OfferSchema extends BaseModel {
+  static $columns = [
+    'benefits',
+    'contractType',
+    'createdAt',
+    'deadline',
+    'educationLevel',
+    'id',
+    'languages',
+    'location',
+    'minExperienceYears',
+    'missions',
+    'niceSkills',
+    'profile',
+    'publishedAt',
+    'requiredSkills',
+    'salaryRange',
+    'status',
+    'summary',
+    'title',
+    'updatedAt',
+    'userId',
+    'workMode',
+  ] as const
+  $columns = OfferSchema.$columns
+  @column()
+  declare benefits: string | null
+  @column()
+  declare contractType: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.date()
+  declare deadline: DateTime | null
+  @column()
+  declare educationLevel: string | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare languages: any
+  @column()
+  declare location: string | null
+  @column()
+  declare minExperienceYears: number
+  @column()
+  declare missions: string
+  @column()
+  declare niceSkills: any
+  @column()
+  declare profile: string | null
+  @column.dateTime()
+  declare publishedAt: DateTime | null
+  @column()
+  declare requiredSkills: any
+  @column()
+  declare salaryRange: string | null
+  @column()
+  declare status: string
+  @column()
+  declare summary: string
+  @column()
+  declare title: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
+  @column()
+  declare workMode: string
+}
+
 export class UserSchema extends BaseModel {
   static $columns = [
     'companyName',
