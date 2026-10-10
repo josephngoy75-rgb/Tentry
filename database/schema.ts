@@ -8,28 +8,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export class ApplicationSchema extends BaseModel {
-  static $columns = [
-    'availability',
-    'birthDate',
-    'city',
-    'country',
-    'createdAt',
-    'educationLevel',
-    'email',
-    'experienceDescription',
-    'experienceYears',
-    'fullName',
-    'id',
-    'motivation',
-    'phone',
-    'portfolioUrl',
-    'priority',
-    'program',
-    'score',
-    'scoreBreakdown',
-    'status',
-    'updatedAt',
-  ] as const
+  static $columns = ['availability', 'birthDate', 'city', 'country', 'createdAt', 'educationLevel', 'email', 'experienceDescription', 'experienceYears', 'fullName', 'id', 'motivation', 'phone', 'portfolioUrl', 'priority', 'program', 'score', 'scoreBreakdown', 'status', 'updatedAt'] as const
   $columns = ApplicationSchema.$columns
   @column()
   declare availability: string
@@ -73,30 +52,45 @@ export class ApplicationSchema extends BaseModel {
   declare updatedAt: DateTime
 }
 
+export class CompanyProfileSchema extends BaseModel {
+  static $columns = ['addressLine', 'city', 'country', 'createdAt', 'description', 'facebookUrl', 'foundedYear', 'id', 'instagramUrl', 'linkedinUrl', 'sector', 'size', 'updatedAt', 'userId', 'websiteUrl', 'xUrl'] as const
+  $columns = CompanyProfileSchema.$columns
+  @column()
+  declare addressLine: string | null
+  @column()
+  declare city: string | null
+  @column()
+  declare country: string | null
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string | null
+  @column()
+  declare facebookUrl: string | null
+  @column()
+  declare foundedYear: number | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare instagramUrl: string | null
+  @column()
+  declare linkedinUrl: string | null
+  @column()
+  declare sector: string | null
+  @column()
+  declare size: string | null
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
+  @column()
+  declare websiteUrl: string | null
+  @column()
+  declare xUrl: string | null
+}
+
 export class OfferSchema extends BaseModel {
-  static $columns = [
-    'benefits',
-    'contractType',
-    'createdAt',
-    'deadline',
-    'educationLevel',
-    'id',
-    'languages',
-    'location',
-    'minExperienceYears',
-    'missions',
-    'niceSkills',
-    'profile',
-    'publishedAt',
-    'requiredSkills',
-    'salaryRange',
-    'status',
-    'summary',
-    'title',
-    'updatedAt',
-    'userId',
-    'workMode',
-  ] as const
+  static $columns = ['benefits', 'contractType', 'createdAt', 'deadline', 'educationLevel', 'id', 'languages', 'location', 'minExperienceYears', 'missions', 'niceSkills', 'profile', 'publishedAt', 'requiredSkills', 'salaryRange', 'status', 'summary', 'title', 'updatedAt', 'userId', 'workMode'] as const
   $columns = OfferSchema.$columns
   @column()
   declare benefits: string | null
@@ -143,16 +137,7 @@ export class OfferSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = [
-    'companyName',
-    'createdAt',
-    'email',
-    'fullName',
-    'id',
-    'password',
-    'role',
-    'updatedAt',
-  ] as const
+  static $columns = ['companyName', 'createdAt', 'email', 'fullName', 'id', 'password', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
   declare companyName: string | null

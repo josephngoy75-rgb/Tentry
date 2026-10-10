@@ -15,11 +15,12 @@ router.on('/').render('pages/home').as('home')
 
 /*
 |--------------------------------------------------------------------------
-| Offres d'emploi (pages publiques)
+| Offres d'emploi et entreprises (pages publiques)
 |--------------------------------------------------------------------------
 */
 router.get('/offres', [controllers.PublicOffers, 'index']).as('offers.index')
 router.get('/offres/:id', [controllers.PublicOffers, 'show']).as('offers.show')
+router.get('/entreprises/:id', [controllers.PublicCompanies, 'show']).as('companies.show')
 
 /*
 |--------------------------------------------------------------------------
@@ -64,21 +65,20 @@ router
 */
 router
   .group(() => {
-    router
-      .get('/entreprise/offres', [controllers.CompanyOffers, 'index'])
-      .as('company.offers.index')
+    router.get('/entreprise/offres', [controllers.CompanyOffers, 'index']).as('company.offers.index')
     router
       .get('/entreprise/offres/nouvelle', [controllers.CompanyOffers, 'create'])
       .as('company.offers.create')
-    router
-      .post('/entreprise/offres', [controllers.CompanyOffers, 'store'])
-      .as('company.offers.store')
+    router.post('/entreprise/offres', [controllers.CompanyOffers, 'store']).as('company.offers.store')
     router
       .get('/entreprise/offres/:id/modifier', [controllers.CompanyOffers, 'edit'])
       .as('company.offers.edit')
     router.post('/entreprise/offres/:id', [controllers.CompanyOffers, 'update'])
     router.post('/entreprise/offres/:id/statut', [controllers.CompanyOffers, 'updateStatus'])
     router.post('/entreprise/offres/:id/dupliquer', [controllers.CompanyOffers, 'duplicate'])
+
+    router.get('/entreprise/profil', [controllers.CompanyProfile, 'edit']).as('company.profile.edit')
+    router.post('/entreprise/profil', [controllers.CompanyProfile, 'update'])
   })
   .use([middleware.auth(), middleware.role({ roles: ['company'] })])
 
