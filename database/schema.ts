@@ -89,6 +89,25 @@ export class CompanyProfileSchema extends BaseModel {
   declare xUrl: string | null
 }
 
+export class MediaFileSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'kind', 'mime', 'path', 'size', 'userId'] as const
+  $columns = MediaFileSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare kind: string
+  @column()
+  declare mime: string
+  @column()
+  declare path: string
+  @column()
+  declare size: number
+  @column()
+  declare userId: number
+}
+
 export class OfferSchema extends BaseModel {
   static $columns = ['benefits', 'contractType', 'createdAt', 'deadline', 'educationLevel', 'id', 'languages', 'location', 'minExperienceYears', 'missions', 'niceSkills', 'profile', 'publishedAt', 'requiredSkills', 'salaryRange', 'status', 'summary', 'title', 'updatedAt', 'userId', 'workMode'] as const
   $columns = OfferSchema.$columns

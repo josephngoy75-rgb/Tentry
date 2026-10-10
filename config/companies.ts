@@ -36,3 +36,12 @@ export const socialNetworks = [
 
 export type CompanySector = keyof typeof companySectors
 export type CompanySize = keyof typeof companySizes
+
+/**
+ * Limites des images du profil d'entreprise.
+ */
+export const mediaLimits = {
+  logoMaxSize: '2mb',
+  photoMaxSize: '5mb',
+  maxPhotos: 5,
+}

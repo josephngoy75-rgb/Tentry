@@ -1,0 +1,85 @@
+@layouts.app({ title: 'Logo et photos' })
+  <div class="page">
+    <a href="/entreprise/profil" class="table__sub">← Profil de l'entreprise</a>
+
+    <div class="page__header" style="margin-top: 12px;">
+      <div>
+        <h1 class="page__title">Logo et photos</h1>
+        <p class="page__description">
+          Elles s'affichent sur votre page publique. Formats JPEG, PNG ou WebP.
+        </p>
+      </div>
+      <div class="page__actions">
+        <a href="/entreprises/{{ auth.user.id }}" class="btn btn--secondary">Voir ma page publique</a>
+      </div>
+    </div>
+
+    <div class="form-stack">
+      <div class="panel">
+        <h2 class="section__title">Logo</h2>
+        <p class="section__description">Image carrée de préférence. {{ limits.logoMaxSize }} maximum.</p>
+
+        @if(logo)
+          <div class="media-current">
+            <img src="/medias/{{ logo.id }}" alt="Logo actuel" class="media-logo" />
+            <form method="POST" action="/entreprise/profil/medias/{{ logo.id }}/supprimer">
+              {{ csrfField() }}
+              <button type="submit" class="btn btn--secondary btn--sm">Supprimer le logo</button>
+            </form>
+          </div>
+        @end
+
+        <form method="POST" action="/entreprise/profil/logo" enctype="multipart/form-data" class="form-section">
+          {{ csrfField() }}
+          @field.root({ name: 'logo' })
+            @!field.label({ text: logo ? 'Remplacer le logo' : 'Ajouter un logo' })
+            <input type="file" name="logo" id="logo" accept="image/jpeg,image/png,image/webp" class="field__input" />
+            @!field.error()
+          @end
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary">Envoyer le logo</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">Photos de l'entreprise ({{ photos.length }} / {{ limits.maxPhotos }})</h2>
+        <p class="section__description">
+          Vos locaux, votre équipe, vos projets. {{ limits.photoMaxSize }} maximum par photo.
+        </p>
+
+        @if(photos.length)
+          <div class="media-grid">
+            @each(photo in photos)
+              <div class="media-item">
+                <img src="/medias/{{ photo.id }}" alt="Photo de l'entreprise" class="media-thumb" />
+                <form method="POST" action="/entreprise/profil/medias/{{ photo.id }}/supprimer">
+                  {{ csrfField() }}
+                  <button type="submit" class="btn btn--secondary btn--sm">Supprimer</button>
+                </form>
+              </div>
+            @end
+          </div>
+        @end
+
+        @if(photos.length < limits.maxPhotos)
+          <form method="POST" action="/entreprise/profil/photos" enctype="multipart/form-data" class="form-section">
+            {{ csrfField() }}
+            @field.root({ name: 'photos' })
+              @!field.label({ text: 'Ajouter des photos' })
+              <input type="file" name="photos" id="photos" accept="image/jpeg,image/png,image/webp" multiple class="field__input" />
+              @!field.error()
+            @end
+            <div class="form-actions">
+              <button type="submit" class="btn btn--primary">Envoyer les photos</button>
+            </div>
+          </form>
+        @else
+          <p class="hint" style="margin-top: 14px;">
+            Vous avez atteint le maximum. Supprimez une photo pour en ajouter une autre.
+          </p>
+        @end
+      </div>
+    </div>
+  </div>
+@end
