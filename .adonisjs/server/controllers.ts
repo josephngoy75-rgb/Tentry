@@ -11,6 +11,7 @@ export const controllers = {
   CompanyProfile: () => import('#controllers/company_profile_controller'),
   Dashboard: () => import('#controllers/dashboard_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
+  PasswordReset: () => import('#controllers/password_reset_controller'),
   PublicCompanies: () => import('#controllers/public_companies_controller'),
   PublicMedia: () => import('#controllers/public_media_controller'),
   PublicOffers: () => import('#controllers/public_offers_controller'),

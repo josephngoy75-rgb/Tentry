@@ -34,6 +34,18 @@ router.on('/merci').render('pages/applications/thanks').as('thanks')
 
 /*
 |--------------------------------------------------------------------------
+| Mot de passe oublié (ouvert à tous)
+|--------------------------------------------------------------------------
+*/
+router.get('/mot-de-passe-oublie', [controllers.PasswordReset, 'forgotForm'])
+router.post('/mot-de-passe-oublie', [controllers.PasswordReset, 'forgotStore'])
+router.on('/mot-de-passe-oublie/envoye').render('pages/auth/forgot_password_sent')
+router.get('/reinitialiser-mot-de-passe/:token', [controllers.PasswordReset, 'resetForm'])
+router.post('/reinitialiser-mot-de-passe/:token', [controllers.PasswordReset, 'resetStore'])
+router.on('/mot-de-passe-modifie').render('pages/auth/password_changed')
+
+/*
+|--------------------------------------------------------------------------
 | Inscription et connexion (visiteurs non connectés)
 |--------------------------------------------------------------------------
 */

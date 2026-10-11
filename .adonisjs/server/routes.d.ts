@@ -12,6 +12,10 @@ export type ScannedRoutes = {
     'application.create': { paramsTuple?: []; params?: {} }
     'application.store': { paramsTuple?: []; params?: {} }
     'thanks': { paramsTuple?: []; params?: {} }
+    'password_reset.forgot_form': { paramsTuple?: []; params?: {} }
+    'password_reset.forgot_store': { paramsTuple?: []; params?: {} }
+    'password_reset.reset_form': { paramsTuple: [ParamValue]; params: {'token': ParamValue} }
+    'password_reset.reset_store': { paramsTuple: [ParamValue]; params: {'token': ParamValue} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'new_account.store': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
@@ -43,6 +47,8 @@ export type ScannedRoutes = {
     'media.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'application.create': { paramsTuple?: []; params?: {} }
     'thanks': { paramsTuple?: []; params?: {} }
+    'password_reset.forgot_form': { paramsTuple?: []; params?: {} }
+    'password_reset.reset_form': { paramsTuple: [ParamValue]; params: {'token': ParamValue} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
     'account': { paramsTuple?: []; params?: {} }
@@ -62,6 +68,8 @@ export type ScannedRoutes = {
     'media.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'application.create': { paramsTuple?: []; params?: {} }
     'thanks': { paramsTuple?: []; params?: {} }
+    'password_reset.forgot_form': { paramsTuple?: []; params?: {} }
+    'password_reset.reset_form': { paramsTuple: [ParamValue]; params: {'token': ParamValue} }
     'new_account.create': { paramsTuple?: []; params?: {} }
     'session.create': { paramsTuple?: []; params?: {} }
     'account': { paramsTuple?: []; params?: {} }
@@ -75,6 +83,8 @@ export type ScannedRoutes = {
   }
   POST: {
     'application.store': { paramsTuple?: []; params?: {} }
+    'password_reset.forgot_store': { paramsTuple?: []; params?: {} }
+    'password_reset.reset_store': { paramsTuple: [ParamValue]; params: {'token': ParamValue} }
     'new_account.store': { paramsTuple?: []; params?: {} }
     'session.store': { paramsTuple?: []; params?: {} }
     'session.destroy': { paramsTuple?: []; params?: {} }

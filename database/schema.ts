@@ -52,6 +52,25 @@ export class ApplicationSchema extends BaseModel {
   declare updatedAt: DateTime
 }
 
+export class AuthTokenSchema extends BaseModel {
+  static $columns = ['createdAt', 'expiresAt', 'id', 'tokenHash', 'type', 'usedAt', 'userId'] as const
+  $columns = AuthTokenSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare expiresAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare tokenHash: string
+  @column()
+  declare type: string
+  @column.dateTime()
+  declare usedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
 export class CompanyProfileSchema extends BaseModel {
   static $columns = ['addressLine', 'city', 'country', 'createdAt', 'description', 'facebookUrl', 'foundedYear', 'id', 'instagramUrl', 'linkedinUrl', 'sector', 'size', 'updatedAt', 'userId', 'websiteUrl', 'xUrl'] as const
   $columns = CompanyProfileSchema.$columns
