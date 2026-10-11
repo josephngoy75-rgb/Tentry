@@ -21,4 +21,11 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
     }
     return `${first.slice(0, 2)}`.toUpperCase()
   }
+
+  /**
+   * L'adresse email a-t-elle été confirmée par le lien reçu ?
+   */
+  get isEmailVerified() {
+    return this.emailVerifiedAt !== null && this.emailVerifiedAt !== undefined
+  }
 }

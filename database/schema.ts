@@ -175,7 +175,7 @@ export class OfferSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['companyName', 'createdAt', 'email', 'fullName', 'id', 'password', 'role', 'updatedAt'] as const
+  static $columns = ['companyName', 'createdAt', 'email', 'emailVerifiedAt', 'fullName', 'id', 'password', 'role', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
   declare companyName: string | null
@@ -183,6 +183,8 @@ export class UserSchema extends BaseModel {
   declare createdAt: DateTime
   @column()
   declare email: string
+  @column.dateTime()
+  declare emailVerifiedAt: DateTime | null
   @column()
   declare fullName: string | null
   @column({ isPrimary: true })

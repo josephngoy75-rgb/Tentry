@@ -10,6 +10,7 @@ export const controllers = {
   CompanyOffers: () => import('#controllers/company_offers_controller'),
   CompanyProfile: () => import('#controllers/company_profile_controller'),
   Dashboard: () => import('#controllers/dashboard_controller'),
+  EmailVerification: () => import('#controllers/email_verification_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
   PasswordReset: () => import('#controllers/password_reset_controller'),
   PublicCompanies: () => import('#controllers/public_companies_controller'),

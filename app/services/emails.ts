@@ -83,3 +83,31 @@ export function passwordChangedEmail(input: { to: string; name?: string | null }
   <p>Si ce n'est pas vous, demandez immédiatement un nouveau mot de passe depuis la page de connexion.</p>`),
   }
 }
+
+export function verificationEmail(input: {
+  to: string
+  name?: string | null
+  token: string
+}): MailMessage {
+  const link = appLink(`/confirmer-email/${input.token}`)
+  const hello = greeting(input.name)
+
+  return {
+    to: input.to,
+    subject: 'Confirmez votre adresse email Talentry',
+    text: [
+      hello,
+      '',
+      'Bienvenue sur Talentry. Confirmez votre adresse email avec ce lien (valable 24 heures) :',
+      link,
+      '',
+      "Si vous n'avez pas créé de compte, ignorez cet email.",
+    ].join('\n'),
+    html: wrap(`
+  <p>${escapeHtml(hello)}</p>
+  <p>Bienvenue sur Talentry. Confirmez votre adresse email avec le bouton ci-dessous (valable 24 heures).</p>
+  ${button(link, 'Confirmer mon adresse')}
+  <p style="font-size: 13px; color: #6b7280;">Ou copiez ce lien dans votre navigateur :<br />${escapeHtml(link)}</p>
+  <p>Si vous n'avez pas créé de compte, ignorez cet email.</p>`),
+  }
+}

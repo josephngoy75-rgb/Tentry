@@ -46,6 +46,15 @@ router.on('/mot-de-passe-modifie').render('pages/auth/password_changed')
 
 /*
 |--------------------------------------------------------------------------
+| Confirmation de l'adresse email (le lien doit marcher sans être connecté)
+|--------------------------------------------------------------------------
+*/
+router.get('/confirmer-email/:token', [controllers.EmailVerification, 'show'])
+router.post('/confirmer-email/:token', [controllers.EmailVerification, 'confirm'])
+router.on('/email-confirme').render('pages/auth/email_confirmed')
+
+/*
+|--------------------------------------------------------------------------
 | Inscription et connexion (visiteurs non connectés)
 |--------------------------------------------------------------------------
 */
@@ -68,6 +77,7 @@ router
   .group(() => {
     router.get('/mon-espace', [controllers.Account, 'index']).as('account')
     router.post('logout', [controllers.Session, 'destroy'])
+    router.post('/renvoyer-confirmation', [controllers.EmailVerification, 'resend'])
   })
   .use(middleware.auth())
 
