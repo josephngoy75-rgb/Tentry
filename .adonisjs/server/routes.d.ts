@@ -7,6 +7,8 @@ export type ScannedRoutes = {
     'home': { paramsTuple?: []; params?: {} }
     'offers.index': { paramsTuple?: []; params?: {} }
     'offers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'media.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'application.create': { paramsTuple?: []; params?: {} }
     'application.store': { paramsTuple?: []; params?: {} }
     'thanks': { paramsTuple?: []; params?: {} }
@@ -23,6 +25,12 @@ export type ScannedRoutes = {
     'company_offers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'company_offers.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'company_offers.duplicate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company.profile.edit': { paramsTuple?: []; params?: {} }
+    'company_profile.update': { paramsTuple?: []; params?: {} }
+    'company.media.edit': { paramsTuple?: []; params?: {} }
+    'company_media.upload_logo': { paramsTuple?: []; params?: {} }
+    'company_media.upload_photos': { paramsTuple?: []; params?: {} }
+    'company_media.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -31,6 +39,8 @@ export type ScannedRoutes = {
     'home': { paramsTuple?: []; params?: {} }
     'offers.index': { paramsTuple?: []; params?: {} }
     'offers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'media.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'application.create': { paramsTuple?: []; params?: {} }
     'thanks': { paramsTuple?: []; params?: {} }
     'new_account.create': { paramsTuple?: []; params?: {} }
@@ -39,6 +49,8 @@ export type ScannedRoutes = {
     'company.offers.index': { paramsTuple?: []; params?: {} }
     'company.offers.create': { paramsTuple?: []; params?: {} }
     'company.offers.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company.profile.edit': { paramsTuple?: []; params?: {} }
+    'company.media.edit': { paramsTuple?: []; params?: {} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -46,6 +58,8 @@ export type ScannedRoutes = {
     'home': { paramsTuple?: []; params?: {} }
     'offers.index': { paramsTuple?: []; params?: {} }
     'offers.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'companies.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'media.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'application.create': { paramsTuple?: []; params?: {} }
     'thanks': { paramsTuple?: []; params?: {} }
     'new_account.create': { paramsTuple?: []; params?: {} }
@@ -54,6 +68,8 @@ export type ScannedRoutes = {
     'company.offers.index': { paramsTuple?: []; params?: {} }
     'company.offers.create': { paramsTuple?: []; params?: {} }
     'company.offers.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company.profile.edit': { paramsTuple?: []; params?: {} }
+    'company.media.edit': { paramsTuple?: []; params?: {} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -66,6 +82,10 @@ export type ScannedRoutes = {
     'company_offers.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'company_offers.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'company_offers.duplicate': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company_profile.update': { paramsTuple?: []; params?: {} }
+    'company_media.upload_logo': { paramsTuple?: []; params?: {} }
+    'company_media.upload_photos': { paramsTuple?: []; params?: {} }
+    'company_media.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }

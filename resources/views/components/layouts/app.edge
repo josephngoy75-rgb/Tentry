@@ -5,7 +5,10 @@
 @let(role = auth.user ? auth.user.role : '')
 @let(navByRole = {
   admin: [{ label: 'Candidatures', route: 'dashboard', icon: 'lucide:users' }],
-  company: [{ label: 'Mes offres', route: 'company.offers.index', icon: 'lucide:briefcase' }],
+  company: [
+    { label: 'Mes offres', route: 'company.offers.index', icon: 'lucide:briefcase' },
+    { label: 'Profil', route: 'company.profile.edit', icon: 'lucide:building-2' },
+  ],
   candidate: [{ label: 'Offres', route: 'offers.index', icon: 'lucide:search' }],
 })
 @let(nav = navByRole[role] ?? [])
@@ -24,6 +27,7 @@
     />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
+    @stack('head')
   </head>
   <body>
     <header class="header header--bar">
@@ -58,5 +62,6 @@
 
     <div class="app-main">{{{ await $slots.main() }}}</div>
     @include('partials/flash_alerts')
+    @stack('scripts')
   </body>
 </html>

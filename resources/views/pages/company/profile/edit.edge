@@ -1,0 +1,130 @@
+@layouts.app({ title: 'Profil de l\'entreprise' })
+  <div class="page">
+    <div class="page__header">
+      <div>
+        <h1 class="page__title">Profil de l'entreprise</h1>
+        <p class="page__description">
+          Ces informations sont visibles par les candidats depuis chacune de vos offres.
+        </p>
+      </div>
+      <div class="page__actions">
+        <a href="/entreprise/profil/medias" class="btn btn--secondary">Logo et photos</a>
+        <a href="/entreprises/{{ auth.user.id }}" class="btn btn--secondary">Voir ma page publique</a>
+      </div>
+    </div>
+
+    <form
+      method="POST"
+      action="/entreprise/profil"
+      class="form-stack"
+      x-data="{ submitting: false }"
+      x-on:submit="submitting = true"
+    >
+      {{ csrfField() }}
+
+      <div class="panel">
+        <h2 class="section__title">1. Présentation</h2>
+        <p class="section__description">Ce qui donne confiance au candidat avant de postuler.</p>
+
+        <div class="form-section">
+          @field.root({ name: 'companyName' })
+            @!field.label({ text: "Nom de l'entreprise *" })
+            @!input.control({ type: 'text', value: values.companyName })
+            @!field.error()
+          @end
+
+          @field.root({ name: 'description' })
+            @!field.label({ text: "Présentation de l'entreprise" })
+            @!textarea.control({
+              rows: '6',
+              class: 'field__input',
+              placeholder: "Votre activité, vos valeurs, votre équipe, ce qui vous distingue.",
+              value: values.description,
+            })
+            <p class="hint">3 000 caractères maximum. Soyez concret : clients, projets, chiffres.</p>
+            @!field.error()
+          @end
+
+          <div class="form-grid">
+            @field.root({ name: 'sector' })
+              @!field.label({ text: "Secteur d'activité" })
+              @!select.control({ options: sectorOptions, class: 'field__input' })
+              @!field.error()
+            @end
+
+            @field.root({ name: 'size' })
+              @!field.label({ text: "Taille de l'entreprise" })
+              @!select.control({ options: sizeOptions, class: 'field__input' })
+              @!field.error()
+            @end
+          </div>
+
+          @field.root({ name: 'foundedYear' })
+            @!field.label({ text: 'Année de création' })
+            @!input.control({ type: 'number', min: '1800', placeholder: '2015', value: values.foundedYear })
+            @!field.error()
+          @end
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">2. Adresse</h2>
+        <p class="section__description">
+          Les candidats la voient sur vos offres, avec un bouton qui l'ouvre dans Google Maps.
+          Plus l'adresse est précise, plus l'itinéraire sera juste.
+        </p>
+
+        <div class="form-section">
+          @field.root({ name: 'addressLine' })
+            @!field.label({ text: 'Adresse' })
+            @!input.control({ type: 'text', placeholder: '12 avenue du Commerce, Gombe', value: values.addressLine })
+            @!field.error()
+          @end
+
+          <div class="form-grid">
+            @field.root({ name: 'city' })
+              @!field.label({ text: 'Ville' })
+              @!input.control({ type: 'text', placeholder: 'Kinshasa', value: values.city })
+              @!field.error()
+            @end
+
+            @field.root({ name: 'country' })
+              @!field.label({ text: 'Pays' })
+              @!input.control({ type: 'text', placeholder: 'RD Congo', value: values.country })
+              @!field.error()
+            @end
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">3. Site web et réseaux sociaux</h2>
+        <p class="section__description">
+          Tous facultatifs. Un lien LinkedIn doit pointer vers linkedin.com, et ainsi de suite.
+        </p>
+
+        <div class="form-section">
+          @each(network in socialNetworks)
+            @field.root({ name: network.field })
+              @!field.label({ text: network.label })
+              @!input.control({
+                type: 'text',
+                placeholder: network.placeholder,
+                value: values[network.field],
+              })
+              @!field.error()
+            @end
+          @end
+        </div>
+      </div>
+
+      <div
+        class="form-actions"
+        x-bind:style="submitting ? 'pointer-events: none; opacity: 0.6;' : ''"
+      >
+        <button type="submit" class="btn btn--primary">Enregistrer le profil</button>
+        <a href="/entreprise/offres" class="btn btn--secondary">Annuler</a>
+      </div>
+    </form>
+  </div>
+@end
