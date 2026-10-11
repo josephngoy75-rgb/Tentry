@@ -49,13 +49,20 @@
         </section>
       @end
 
-      @if(profile && (profile.addressLine || profile.city || profile.country))
+      @if(address)
         <section class="mt-8">
           <h2 class="border-l-4 border-brand-blue pl-3 text-lg font-bold">Adresse</h2>
-          <p class="mt-3 text-gray-700">
-            @if(profile.addressLine){{ profile.addressLine }}<br />@end
-            {{ [profile.city, profile.country].filter(Boolean).join(', ') }}
-          </p>
+          <p class="mt-3 text-gray-700">{{ address }}</p>
+          @if(mapsUrl)
+            <a
+              href="{{ mapsUrl }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary mt-3"
+            >
+              Voir sur Google Maps
+            </a>
+          @end
         </section>
       @end
 
@@ -77,7 +84,7 @@
         </section>
       @end
 
-      @if(!profile || (!profile.description && !profile.addressLine && !links.length && !photos.length))
+      @if(!profile || (!profile.description && !address && !links.length && !photos.length))
         <p class="mt-8 text-sm text-gray-500">Cette entreprise n'a pas encore complété son profil.</p>
       @end
     </div>

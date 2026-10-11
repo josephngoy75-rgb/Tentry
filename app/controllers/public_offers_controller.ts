@@ -2,6 +2,8 @@ import { DateTime } from 'luxon'
 import type { HttpContext } from '@adonisjs/core/http'
 import Offer from '#models/offer'
 import User from '#models/user'
+import CompanyProfile from '#models/company_profile'
+import { addressText, mapsSearchUrl } from '#services/maps'
 import { contractTypes, workModes } from '#config/offers'
 import { educationLevels } from '#config/programs'
 
@@ -71,10 +73,18 @@ export default class PublicOffersController {
   async show({ params, view }: HttpContext) {
     const offer = await openOffers().where('id', Number(params.id) || 0).firstOrFail()
     const company = await User.findOrFail(offer.userId)
+    const profile = await CompanyProfile.query().where('user_id', company.id).first()
+
+    // Adresse de l'entreprise, ou à défaut le lieu indiqué dans l'offre
+    const address =
+      addressText([profile?.addressLine, profile?.city, profile?.country]) ||
+      (offer.location ?? '').trim()
 
     return view.render('pages/offers/show', {
       offer,
       companyName: company.companyName ?? company.fullName ?? 'Entreprise',
+      address,
+      mapsUrl: mapsSearchUrl(address),
       contractTypes,
       workModes,
       educationLevels,

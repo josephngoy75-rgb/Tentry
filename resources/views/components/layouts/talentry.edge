@@ -12,6 +12,7 @@
     />
     @vite(['resources/css/talentry.css', 'resources/js/app.js'])
     @stack('dumper')
+    @stack('head')
   </head>
   <body class="min-h-screen">
     <header class="bg-brand-dark">
@@ -41,5 +42,6 @@
     </footer>
 
     @include('partials/flash_alerts')
+    @stack('scripts')
   </body>
 </html>

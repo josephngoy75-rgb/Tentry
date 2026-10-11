@@ -4,6 +4,7 @@ import User from '#models/user'
 import Offer from '#models/offer'
 import CompanyProfile from '#models/company_profile'
 import MediaFile from '#models/media_file'
+import { addressText, mapsSearchUrl } from '#services/maps'
 import { contractTypes, workModes } from '#config/offers'
 import { companySectors, companySizes, socialNetworks } from '#config/companies'
 
@@ -41,6 +42,8 @@ export default class PublicCompaniesController {
           .map((network) => ({ label: network.label, url: profile[network.field] as string }))
       : []
 
+    const address = addressText([profile?.addressLine, profile?.city, profile?.country])
+
     return view.render('pages/companies/show', {
       company,
       profile,
@@ -48,6 +51,8 @@ export default class PublicCompaniesController {
       photos,
       offers,
       links,
+      address,
+      mapsUrl: mapsSearchUrl(address),
       sectorLabel: profile?.sector ? companySectors[profile.sector as keyof typeof companySectors] : null,
       sizeLabel: profile?.size ? companySizes[profile.size as keyof typeof companySizes] : null,
       contractTypes,

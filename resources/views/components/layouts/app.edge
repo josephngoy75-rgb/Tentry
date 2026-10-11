@@ -27,6 +27,7 @@
     />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
+    @stack('head')
   </head>
   <body>
     <header class="header header--bar">
@@ -61,5 +62,6 @@
 
     <div class="app-main">{{{ await $slots.main() }}}</div>
     @include('partials/flash_alerts')
+    @stack('scripts')
   </body>
 </html>
