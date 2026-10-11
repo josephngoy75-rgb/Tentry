@@ -55,7 +55,7 @@ router.on('/email-confirme').render('pages/auth/email_confirmed')
 
 /*
 |--------------------------------------------------------------------------
-| Inscription et connexion (visiteurs non connectés)
+| Inscription, connexion et code de connexion (visiteurs non connectés)
 |--------------------------------------------------------------------------
 */
 router
@@ -65,6 +65,10 @@ router
 
     router.get('login', [controllers.Session, 'create'])
     router.post('login', [controllers.Session, 'store'])
+
+    router.get('connexion/code', [controllers.TwoFactor, 'form'])
+    router.post('connexion/code', [controllers.TwoFactor, 'verify'])
+    router.post('connexion/code/renvoyer', [controllers.TwoFactor, 'resend'])
   })
   .use(middleware.guest())
 
@@ -78,6 +82,10 @@ router
     router.get('/mon-espace', [controllers.Account, 'index']).as('account')
     router.post('logout', [controllers.Session, 'destroy'])
     router.post('/renvoyer-confirmation', [controllers.EmailVerification, 'resend'])
+
+    router.get('/securite', [controllers.AccountSecurity, 'show']).as('account.security')
+    router.post('/securite/2fa/activer', [controllers.AccountSecurity, 'enable'])
+    router.post('/securite/2fa/desactiver', [controllers.AccountSecurity, 'disable'])
   })
   .use(middleware.auth())
 

@@ -111,3 +111,30 @@ export function verificationEmail(input: {
   <p>Si vous n'avez pas créé de compte, ignorez cet email.</p>`),
   }
 }
+
+export function loginCodeEmail(input: {
+  to: string
+  name?: string | null
+  code: string
+}): MailMessage {
+  const hello = greeting(input.name)
+
+  return {
+    to: input.to,
+    subject: 'Votre code de connexion Talentry',
+    text: [
+      hello,
+      '',
+      `Votre code de connexion : ${input.code}`,
+      '',
+      "Il est valable 10 minutes. Ne le communiquez à personne : Talentry ne vous le demandera jamais par téléphone ou par message.",
+      "Si vous n'êtes pas à l'origine de cette connexion, changez votre mot de passe immédiatement.",
+    ].join('\n'),
+    html: wrap(`
+  <p>${escapeHtml(hello)}</p>
+  <p>Voici votre code de connexion :</p>
+  <p style="font-size: 32px; font-weight: bold; letter-spacing: 8px; margin: 24px 0;">${escapeHtml(input.code)}</p>
+  <p>Il est valable 10 minutes. Ne le communiquez à personne : Talentry ne vous le demandera jamais par téléphone ou par message.</p>
+  <p>Si vous n'êtes pas à l'origine de cette connexion, changez votre mot de passe immédiatement.</p>`),
+  }
+}

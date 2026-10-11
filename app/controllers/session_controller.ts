@@ -1,5 +1,6 @@
 import User from '#models/user'
 import { loginValidator } from '#validators/user'
+import { sendLoginCode, startChallenge } from '#services/two_factor'
 import type { HttpContext } from '@adonisjs/core/http'
 
 /**
@@ -14,11 +15,22 @@ export default class SessionController {
   }
 
   /**
-   * Authenticate user credentials and create a new session
+   * Authenticate user credentials. If a code is required, send it and wait for it
+   * before opening the session.
    */
-  async store({ request, auth, response }: HttpContext) {
+  async store({ request, auth, response, session }: HttpContext) {
     const { email, password } = await request.validateUsing(loginValidator)
     const user = await User.verifyCredentials(email, password)
+
+    if (user.requiresTwoFactor) {
+      if (!(await sendLoginCode(user))) {
+        session.flash('error', 'Trop de codes demandés. Réessayez dans une heure.')
+        return response.redirect().toRoute('session.create')
+      }
+
+      startChallenge(session, user.id)
+      return response.redirect().toPath('/connexion/code')
+    }
 
     await auth.use('web').login(user)
     response.redirect().toRoute('account')

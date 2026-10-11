@@ -28,4 +28,12 @@ export default class User extends compose(UserSchema, withAuthFinder(hash)) {
   get isEmailVerified() {
     return this.emailVerifiedAt !== null && this.emailVerifiedAt !== undefined
   }
+
+  /**
+   * La connexion exige-t-elle un code par email ?
+   * Toujours pour les administrateurs, sur demande pour les autres.
+   */
+  get requiresTwoFactor() {
+    return this.role === 'admin' || this.twoFactorEnabled === true
+  }
 }

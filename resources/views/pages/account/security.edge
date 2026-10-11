@@ -1,0 +1,61 @@
+@layouts.app({ title: 'Sécurité' })
+  <div class="page">
+    <div class="page__header">
+      <div>
+        <h1 class="page__title">Sécurité du compte</h1>
+        <p class="page__description">Protégez l'accès à votre compte.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2 class="section__title">Double authentification par email</h2>
+      <p class="section__description">
+        À chaque connexion, après le mot de passe, un code à 6 chiffres est envoyé à votre adresse
+        email. Sans ce code, personne ne peut ouvrir votre compte, même avec votre mot de passe.
+      </p>
+
+      <p style="margin-top: 14px;">
+        État :
+        @if(twoFactorEnabled)
+          <span class="badge badge--published">Activée</span>
+        @else
+          <span class="badge badge--draft">Désactivée</span>
+        @end
+      </p>
+
+      @if(forced)
+        <p class="hint" style="margin-top: 12px;">
+          Elle est obligatoire pour les administrateurs et ne peut pas être désactivée.
+        </p>
+      @elseif(twoFactorEnabled)
+        <form method="POST" action="/securite/2fa/desactiver" class="form-section">
+          {{ csrfField() }}
+          @field.root({ name: 'password' })
+            @!field.label({ text: 'Votre mot de passe, pour désactiver' })
+            @!input.control({ type: 'password', autocomplete: 'current-password', placeholder: '••••••••' })
+            @!field.error()
+          @end
+          <div class="form-actions">
+            <button type="submit" class="btn btn--secondary">Désactiver</button>
+          </div>
+        </form>
+      @elseif(!emailVerified)
+        <p class="hint" style="margin-top: 12px;">
+          Confirmez d'abord votre adresse email (lien reçu à l'inscription) : le code y sera envoyé.
+        </p>
+      @else
+        <form method="POST" action="/securite/2fa/activer" class="form-section">
+          {{ csrfField() }}
+          @field.root({ name: 'password' })
+            @!field.label({ text: 'Votre mot de passe, pour activer' })
+            @!input.control({ type: 'password', autocomplete: 'current-password', placeholder: '••••••••' })
+            @!field.error()
+          @end
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary">Activer</button>
+          </div>
+        </form>
+      @end
+    </div>
+  </div>
+@end

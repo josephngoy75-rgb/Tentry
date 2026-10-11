@@ -5,6 +5,7 @@
 
 export const controllers = {
   Account: () => import('#controllers/account_controller'),
+  AccountSecurity: () => import('#controllers/account_security_controller'),
   Application: () => import('#controllers/application_controller'),
   CompanyMedia: () => import('#controllers/company_media_controller'),
   CompanyOffers: () => import('#controllers/company_offers_controller'),
@@ -17,4 +18,5 @@ export const controllers = {
   PublicMedia: () => import('#controllers/public_media_controller'),
   PublicOffers: () => import('#controllers/public_offers_controller'),
   Session: () => import('#controllers/session_controller'),
+  TwoFactor: () => import('#controllers/two_factor_controller'),
 }

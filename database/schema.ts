@@ -108,6 +108,25 @@ export class CompanyProfileSchema extends BaseModel {
   declare xUrl: string | null
 }
 
+export class LoginCodeSchema extends BaseModel {
+  static $columns = ['attempts', 'codeHash', 'createdAt', 'expiresAt', 'id', 'usedAt', 'userId'] as const
+  $columns = LoginCodeSchema.$columns
+  @column()
+  declare attempts: number
+  @column()
+  declare codeHash: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare expiresAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare usedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
 export class MediaFileSchema extends BaseModel {
   static $columns = ['createdAt', 'id', 'kind', 'mime', 'path', 'size', 'userId'] as const
   $columns = MediaFileSchema.$columns
@@ -175,7 +194,7 @@ export class OfferSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['companyName', 'createdAt', 'email', 'emailVerifiedAt', 'fullName', 'id', 'password', 'role', 'updatedAt'] as const
+  static $columns = ['companyName', 'createdAt', 'email', 'emailVerifiedAt', 'fullName', 'id', 'password', 'role', 'twoFactorEnabled', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
   declare companyName: string | null
@@ -193,6 +212,8 @@ export class UserSchema extends BaseModel {
   declare password: string
   @column()
   declare role: string
+  @column()
+  declare twoFactorEnabled: boolean
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

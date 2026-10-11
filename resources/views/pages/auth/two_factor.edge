@@ -1,0 +1,47 @@
+@layouts.auth()
+  <h1 class="auth__title">Code de connexion</h1>
+  <p class="auth__sub">
+    Un code à 6 chiffres vient d'être envoyé à <strong>{{ maskedEmail }}</strong>.
+    Il est valable 10 minutes.
+  </p>
+
+  <form
+    method="POST"
+    action="/connexion/code"
+    class="auth__form"
+    x-data="{ submitting: false }"
+    x-on:submit="submitting = true"
+  >
+    {{ csrfField() }}
+    @field.root({ name: 'code' })
+      @!field.label({ text: 'Code' })
+      @!input.control({
+        type: 'text',
+        inputmode: 'numeric',
+        autocomplete: 'one-time-code',
+        maxlength: '7',
+        placeholder: '123456',
+        autofocus: 'autofocus',
+      })
+      @!field.error()
+    @end
+    @!button({
+      text: 'Valider',
+      type: 'submit',
+      block: true,
+      'x-bind:disabled': 'submitting',
+      'x-text': "submitting ? 'Vérification…' : 'Valider'",
+    })
+  </form>
+
+  <form method="POST" action="/connexion/code/renvoyer" class="auth__foot">
+    {{ csrfField() }}
+    Vous n'avez rien reçu ?
+    <button type="submit" class="il">Renvoyer le code</button>
+  </form>
+  <p class="auth__foot">
+    @link({ route: 'session.create', class: 'il' })
+      Retour à la connexion
+    @end
+  </p>
+@end
