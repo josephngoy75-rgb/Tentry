@@ -10,6 +10,7 @@ export const controllers = {
   CompanyMedia: () => import('#controllers/company_media_controller'),
   CompanyOffers: () => import('#controllers/company_offers_controller'),
   CompanyProfile: () => import('#controllers/company_profile_controller'),
+  CompanyVerification: () => import('#controllers/company_verification_controller'),
   Dashboard: () => import('#controllers/dashboard_controller'),
   EmailVerification: () => import('#controllers/email_verification_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),

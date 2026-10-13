@@ -1,0 +1,149 @@
+@layouts.app({ title: 'Vérification de l\'entreprise' })
+  <div class="page">
+    <div class="page__header">
+      <div>
+        <h1 class="page__title">Vérification de l'entreprise</h1>
+        <p class="page__description">
+          Le badge « Entreprise vérifiée » rassure les candidats. Il n'est pas obligatoire pour
+          publier vos offres.
+        </p>
+      </div>
+      <div class="page__actions">
+        <span class="badge badge--{{ statusKey }}">{{ statuses[statusKey] }}</span>
+      </div>
+    </div>
+
+    <div class="form-stack">
+      @if(statusKey === 'verified')
+        <div class="panel">
+          <h2 class="section__title">Entreprise vérifiée</h2>
+          <p class="section__description">
+            Vérifiée le {{ verification.reviewedAt ? verification.reviewedAt.toFormat('dd/MM/yyyy') : '—' }}.
+            Si vous modifiez le nom ou l'adresse de l'entreprise, la vérification sera à refaire.
+          </p>
+        </div>
+      @elseif(statusKey === 'pending')
+        <div class="panel">
+          <h2 class="section__title">Demande en cours d'examen</h2>
+          <p class="section__description">
+            Envoyée le {{ verification.submittedAt.toFormat('dd/MM/yyyy') }}. Notre équipe examine vos
+            documents. Numéro indiqué : <strong>{{ verification.registrationNumber }}</strong>.
+          </p>
+        </div>
+      @else
+        @if(statusKey === 'rejected')
+          <div class="panel" style="border-color: #fca5a5;">
+            <h2 class="section__title">Demande refusée</h2>
+            <p class="section__description">
+              {{ verification.rejectionReason ?? 'Aucun motif précisé.' }}
+              Vous pouvez corriger et envoyer une nouvelle demande.
+            </p>
+          </div>
+        @end
+
+        @if(!emailVerified)
+          <div class="panel">
+            <p class="section__description">
+              Confirmez d'abord votre adresse email (lien reçu à l'inscription) pour demander la vérification.
+            </p>
+          </div>
+        @elseif(!hasAddress)
+          <div class="panel">
+            <p class="section__description">
+              Renseignez d'abord l'adresse (rue et ville) dans
+              <a href="/entreprise/profil" class="il">le profil de l'entreprise</a> : le justificatif d'adresse doit y correspondre.
+            </p>
+          </div>
+        @else
+          <form
+            method="POST"
+            action="/entreprise/verification"
+            enctype="multipart/form-data"
+            class="form-stack"
+            x-data="{ submitting: false }"
+            x-on:submit="submitting = true"
+          >
+            {{ csrfField() }}
+
+            <div class="panel">
+              <h2 class="section__title">1. Numéro d'enregistrement</h2>
+              <p class="section__description">Le numéro figurant sur votre justificatif d'existence légale.</p>
+              <div class="form-section">
+                @field.root({ name: 'registrationNumber' })
+                  @!field.label({ text: "Numéro d'enregistrement *" })
+                  @!input.control({ type: 'text', placeholder: 'CD/KIN/RCCM/21-B-01234' })
+                  @!field.error()
+                @end
+              </div>
+            </div>
+
+            <div class="panel">
+              <h2 class="section__title">2. {{ kinds.verif_registration.label }}</h2>
+              <p class="section__description">{{ kinds.verif_registration.help }}</p>
+              <div class="form-section">
+                @field.root({ name: 'registration' })
+                  @!field.label({ text: 'Documents * (PDF, JPEG, PNG ou WebP)' })
+                  <input type="file" name="registration" id="registration" multiple accept=".pdf,image/jpeg,image/png,image/webp" class="field__input" />
+                  <p class="hint">{{ limits.maxFilesPerKind }} documents maximum, {{ limits.maxSize }} chacun.</p>
+                  @!field.error()
+                @end
+              </div>
+            </div>
+
+            <div class="panel">
+              <h2 class="section__title">3. {{ kinds.verif_address.label }}</h2>
+              <p class="section__description">{{ kinds.verif_address.help }}</p>
+              <div class="form-section">
+                @field.root({ name: 'address' })
+                  @!field.label({ text: 'Documents * (PDF, JPEG, PNG ou WebP)' })
+                  <input type="file" name="address" id="address" multiple accept=".pdf,image/jpeg,image/png,image/webp" class="field__input" />
+                  <p class="hint">
+                    L'adresse du document doit correspondre à celle de votre profil.
+                    {{ limits.maxFilesPerKind }} documents maximum, {{ limits.maxSize }} chacun.
+                  </p>
+                  @!field.error()
+                @end
+              </div>
+            </div>
+
+            <p class="hint">
+              Ces documents ne sont jamais visibles publiquement : seule l'équipe Talentry peut les consulter.
+            </p>
+
+            <div class="form-actions" x-bind:style="submitting ? 'pointer-events: none; opacity: 0.6;' : ''">
+              <button type="submit" class="btn btn--primary">Envoyer la demande</button>
+            </div>
+          </form>
+        @end
+      @end
+
+      @if(statusKey === 'pending' || statusKey === 'verified')
+        <div class="panel">
+          <h2 class="section__title">Documents envoyés</h2>
+          <dl class="facts">
+            <div>
+              <dt>{{ kinds.verif_registration.label }}</dt>
+              <dd>
+                @each((doc, index) in registrationDocs)
+                  <a href="/entreprise/verification/documents/{{ doc.id }}" target="_blank" rel="noopener noreferrer" class="il">
+                    Document {{ index + 1 }} ({{ doc.label }})
+                  </a><br />
+                @end
+              </dd>
+            </div>
+            <div>
+              <dt>{{ kinds.verif_address.label }}</dt>
+              <dd>
+                @each((doc, index) in addressDocs)
+                  <a href="/entreprise/verification/documents/{{ doc.id }}" target="_blank" rel="noopener noreferrer" class="il">
+                    Document {{ index + 1 }} ({{ doc.label }})
+                  </a><br />
+                @end
+              </dd>
+            </div>
+          </dl>
+        </div>
+      @end
+    </div>
+  </div>
+@end

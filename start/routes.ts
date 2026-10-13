@@ -117,6 +117,12 @@ router
     router.post('/entreprise/profil/logo', [controllers.CompanyMedia, 'uploadLogo'])
     router.post('/entreprise/profil/photos', [controllers.CompanyMedia, 'uploadPhotos'])
     router.post('/entreprise/profil/medias/:id/supprimer', [controllers.CompanyMedia, 'destroy'])
+
+    router
+      .get('/entreprise/verification', [controllers.CompanyVerification, 'show'])
+      .as('company.verification.show')
+    router.post('/entreprise/verification', [controllers.CompanyVerification, 'submit'])
+    router.get('/entreprise/verification/documents/:id', [controllers.CompanyVerification, 'document'])
   })
   .use([middleware.auth(), middleware.role({ roles: ['company'] })])
 

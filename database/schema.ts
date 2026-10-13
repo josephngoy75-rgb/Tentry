@@ -108,6 +108,31 @@ export class CompanyProfileSchema extends BaseModel {
   declare xUrl: string | null
 }
 
+export class CompanyVerificationSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'registrationNumber', 'rejectionReason', 'reviewedAt', 'reviewedBy', 'status', 'submittedAt', 'updatedAt', 'userId'] as const
+  $columns = CompanyVerificationSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare registrationNumber: string
+  @column()
+  declare rejectionReason: string | null
+  @column.dateTime()
+  declare reviewedAt: DateTime | null
+  @column()
+  declare reviewedBy: number | null
+  @column()
+  declare status: string
+  @column.dateTime()
+  declare submittedAt: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
 export class LoginCodeSchema extends BaseModel {
   static $columns = ['attempts', 'codeHash', 'createdAt', 'expiresAt', 'id', 'usedAt', 'userId'] as const
   $columns = LoginCodeSchema.$columns

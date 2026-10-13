@@ -44,6 +44,9 @@ export type ScannedRoutes = {
     'company_media.upload_logo': { paramsTuple?: []; params?: {} }
     'company_media.upload_photos': { paramsTuple?: []; params?: {} }
     'company_media.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company.verification.show': { paramsTuple?: []; params?: {} }
+    'company_verification.submit': { paramsTuple?: []; params?: {} }
+    'company_verification.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
@@ -69,6 +72,8 @@ export type ScannedRoutes = {
     'company.offers.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'company.profile.edit': { paramsTuple?: []; params?: {} }
     'company.media.edit': { paramsTuple?: []; params?: {} }
+    'company.verification.show': { paramsTuple?: []; params?: {} }
+    'company_verification.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -93,6 +98,8 @@ export type ScannedRoutes = {
     'company.offers.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'company.profile.edit': { paramsTuple?: []; params?: {} }
     'company.media.edit': { paramsTuple?: []; params?: {} }
+    'company.verification.show': { paramsTuple?: []; params?: {} }
+    'company_verification.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
@@ -117,6 +124,7 @@ export type ScannedRoutes = {
     'company_media.upload_logo': { paramsTuple?: []; params?: {} }
     'company_media.upload_photos': { paramsTuple?: []; params?: {} }
     'company_media.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'company_verification.submit': { paramsTuple?: []; params?: {} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }

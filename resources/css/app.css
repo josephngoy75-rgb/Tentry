@@ -1340,3 +1340,21 @@ textarea.field__input {
   border: 1px solid var(--line-2);
   border-radius: var(--r);
 }
+
+/* États de la vérification d'entreprise */
+.badge--unverified {
+  background: #f1f5f9;
+  color: #475569;
+}
+.badge--pending {
+  background: #fef3c7;
+  color: #92560a;
+}
+.badge--verified {
+  background: #dcfce7;
+  color: #0b6b2c;
+}
+.badge--rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
