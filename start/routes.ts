@@ -34,7 +34,28 @@ router.on('/merci').render('pages/applications/thanks').as('thanks')
 
 /*
 |--------------------------------------------------------------------------
-| Inscription et connexion (visiteurs non connectés)
+| Mot de passe oublié (ouvert à tous)
+|--------------------------------------------------------------------------
+*/
+router.get('/mot-de-passe-oublie', [controllers.PasswordReset, 'forgotForm'])
+router.post('/mot-de-passe-oublie', [controllers.PasswordReset, 'forgotStore'])
+router.on('/mot-de-passe-oublie/envoye').render('pages/auth/forgot_password_sent')
+router.get('/reinitialiser-mot-de-passe/:token', [controllers.PasswordReset, 'resetForm'])
+router.post('/reinitialiser-mot-de-passe/:token', [controllers.PasswordReset, 'resetStore'])
+router.on('/mot-de-passe-modifie').render('pages/auth/password_changed')
+
+/*
+|--------------------------------------------------------------------------
+| Confirmation de l'adresse email (le lien doit marcher sans être connecté)
+|--------------------------------------------------------------------------
+*/
+router.get('/confirmer-email/:token', [controllers.EmailVerification, 'show'])
+router.post('/confirmer-email/:token', [controllers.EmailVerification, 'confirm'])
+router.on('/email-confirme').render('pages/auth/email_confirmed')
+
+/*
+|--------------------------------------------------------------------------
+| Inscription, connexion et code de connexion (visiteurs non connectés)
 |--------------------------------------------------------------------------
 */
 router
@@ -44,6 +65,10 @@ router
 
     router.get('login', [controllers.Session, 'create'])
     router.post('login', [controllers.Session, 'store'])
+
+    router.get('connexion/code', [controllers.TwoFactor, 'form'])
+    router.post('connexion/code', [controllers.TwoFactor, 'verify'])
+    router.post('connexion/code/renvoyer', [controllers.TwoFactor, 'resend'])
   })
   .use(middleware.guest())
 
@@ -56,6 +81,11 @@ router
   .group(() => {
     router.get('/mon-espace', [controllers.Account, 'index']).as('account')
     router.post('logout', [controllers.Session, 'destroy'])
+    router.post('/renvoyer-confirmation', [controllers.EmailVerification, 'resend'])
+
+    router.get('/securite', [controllers.AccountSecurity, 'show']).as('account.security')
+    router.post('/securite/2fa/activer', [controllers.AccountSecurity, 'enable'])
+    router.post('/securite/2fa/desactiver', [controllers.AccountSecurity, 'disable'])
   })
   .use(middleware.auth())
 

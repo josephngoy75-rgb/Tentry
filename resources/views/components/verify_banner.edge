@@ -1,0 +1,11 @@
+@if(auth.user && !auth.user.isEmailVerified)
+  <div style="background: #fef3c7; border-bottom: 1px solid #f59a0b; padding: 10px 20px; font-size: 13.5px; color: #92560a; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px;">
+    <span>Confirmez votre adresse email : un lien vous a été envoyé à <strong>{{ auth.user.email }}</strong>.</span>
+    <form method="POST" action="/renvoyer-confirmation" style="display: inline;">
+      {{ csrfField() }}
+      <button type="submit" style="text-decoration: underline; font-weight: 600; color: #92560a; cursor: pointer;">
+        Renvoyer l'email
+      </button>
+    </form>
+  </div>
+@end

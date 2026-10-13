@@ -50,6 +50,7 @@
     "@types/alpinejs": "^3.13.11",
     "@types/luxon": "^3.7.6",
     "@types/node": "~26.6.2",
+    "@types/nodemailer": "^8.0.2",
     "alpinejs": "^3.17.4",
     "eslint": "^10.11.0",
     "hot-hook": "^1.0.0",
@@ -73,6 +74,7 @@
     "edge-iconify": "^2.0.2",
     "edge.js": "^6.5.1",
     "luxon": "^3.7.2",
+    "nodemailer": "^10.1.0",
     "pg": "^8.23.1",
     "reflect-metadata": "^0.2.2"
   },

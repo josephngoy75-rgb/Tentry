@@ -5,14 +5,18 @@
 
 export const controllers = {
   Account: () => import('#controllers/account_controller'),
+  AccountSecurity: () => import('#controllers/account_security_controller'),
   Application: () => import('#controllers/application_controller'),
   CompanyMedia: () => import('#controllers/company_media_controller'),
   CompanyOffers: () => import('#controllers/company_offers_controller'),
   CompanyProfile: () => import('#controllers/company_profile_controller'),
   Dashboard: () => import('#controllers/dashboard_controller'),
+  EmailVerification: () => import('#controllers/email_verification_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
+  PasswordReset: () => import('#controllers/password_reset_controller'),
   PublicCompanies: () => import('#controllers/public_companies_controller'),
   PublicMedia: () => import('#controllers/public_media_controller'),
   PublicOffers: () => import('#controllers/public_offers_controller'),
   Session: () => import('#controllers/session_controller'),
+  TwoFactor: () => import('#controllers/two_factor_controller'),
 }

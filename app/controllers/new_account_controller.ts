@@ -1,5 +1,6 @@
 import User from '#models/user'
 import { signupValidator } from '#validators/user'
+import { sendVerificationEmail } from '#controllers/email_verification_controller'
 import type { HttpContext } from '@adonisjs/core/http'
 
 /**
@@ -15,7 +16,7 @@ export default class NewAccountController {
   }
 
   /**
-   * Create a new user account and authenticate the user
+   * Create a new user account, send the confirmation email and authenticate the user
    */
   async store({ request, response, auth, session }: HttpContext) {
     const { fullName, email, password, role, companyName } =
@@ -35,6 +36,8 @@ export default class NewAccountController {
       role,
       companyName: role === 'company' ? (companyName ?? null) : null,
     })
+
+    await sendVerificationEmail(user)
 
     await auth.use('web').login(user)
     response.redirect().toRoute('account')

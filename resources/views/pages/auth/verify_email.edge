@@ -1,0 +1,9 @@
+@layouts.auth()
+  <h1 class="auth__title">Confirmer mon adresse</h1>
+  <p class="auth__sub">Cliquez sur le bouton pour confirmer votre adresse email.</p>
+
+  <form method="POST" action="/confirmer-email/{{ token }}" class="auth__form">
+    {{ csrfField() }}
+    @!button({ text: 'Confirmer mon adresse', type: 'submit', block: true })
+  </form>
+@end

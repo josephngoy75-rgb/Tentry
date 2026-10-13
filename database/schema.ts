@@ -52,6 +52,25 @@ export class ApplicationSchema extends BaseModel {
   declare updatedAt: DateTime
 }
 
+export class AuthTokenSchema extends BaseModel {
+  static $columns = ['createdAt', 'expiresAt', 'id', 'tokenHash', 'type', 'usedAt', 'userId'] as const
+  $columns = AuthTokenSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare expiresAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare tokenHash: string
+  @column()
+  declare type: string
+  @column.dateTime()
+  declare usedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
 export class CompanyProfileSchema extends BaseModel {
   static $columns = ['addressLine', 'city', 'country', 'createdAt', 'description', 'facebookUrl', 'foundedYear', 'id', 'instagramUrl', 'linkedinUrl', 'sector', 'size', 'updatedAt', 'userId', 'websiteUrl', 'xUrl'] as const
   $columns = CompanyProfileSchema.$columns
@@ -87,6 +106,25 @@ export class CompanyProfileSchema extends BaseModel {
   declare websiteUrl: string | null
   @column()
   declare xUrl: string | null
+}
+
+export class LoginCodeSchema extends BaseModel {
+  static $columns = ['attempts', 'codeHash', 'createdAt', 'expiresAt', 'id', 'usedAt', 'userId'] as const
+  $columns = LoginCodeSchema.$columns
+  @column()
+  declare attempts: number
+  @column()
+  declare codeHash: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare expiresAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime()
+  declare usedAt: DateTime | null
+  @column()
+  declare userId: number
 }
 
 export class MediaFileSchema extends BaseModel {
@@ -155,8 +193,19 @@ export class OfferSchema extends BaseModel {
   declare workMode: string
 }
 
+export class RateLimitHitSchema extends BaseModel {
+  static $columns = ['bucket', 'createdAt', 'id'] as const
+  $columns = RateLimitHitSchema.$columns
+  @column()
+  declare bucket: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['companyName', 'createdAt', 'email', 'fullName', 'id', 'password', 'role', 'updatedAt'] as const
+  static $columns = ['companyName', 'createdAt', 'email', 'emailVerifiedAt', 'fullName', 'id', 'password', 'role', 'twoFactorEnabled', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column()
   declare companyName: string | null
@@ -164,6 +213,8 @@ export class UserSchema extends BaseModel {
   declare createdAt: DateTime
   @column()
   declare email: string
+  @column.dateTime()
+  declare emailVerifiedAt: DateTime | null
   @column()
   declare fullName: string | null
   @column({ isPrimary: true })
@@ -172,6 +223,8 @@ export class UserSchema extends BaseModel {
   declare password: string
   @column()
   declare role: string
+  @column()
+  declare twoFactorEnabled: boolean
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

@@ -104,7 +104,7 @@ export default class CompanyOffersController {
       return response.redirect().back()
     }
 
-    const publish = intent === 'publish'
+    const publish = intent === 'publish' && auth.getUserOrFail().isEmailVerified
 
     await Offer.create({
       ...data,
