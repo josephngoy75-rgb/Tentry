@@ -193,6 +193,17 @@ export class OfferSchema extends BaseModel {
   declare workMode: string
 }
 
+export class RateLimitHitSchema extends BaseModel {
+  static $columns = ['bucket', 'createdAt', 'id'] as const
+  $columns = RateLimitHitSchema.$columns
+  @column()
+  declare bucket: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+}
+
 export class UserSchema extends BaseModel {
   static $columns = ['companyName', 'createdAt', 'email', 'emailVerifiedAt', 'fullName', 'id', 'password', 'role', 'twoFactorEnabled', 'updatedAt'] as const
   $columns = UserSchema.$columns
