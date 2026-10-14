@@ -50,6 +50,11 @@ export type ScannedRoutes = {
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin.verifications.index': { paramsTuple?: []; params?: {} }
+    'admin_verifications.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin_verifications.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin_verifications.reject': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin_verifications.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   GET: {
     'home': { paramsTuple?: []; params?: {} }
@@ -76,6 +81,9 @@ export type ScannedRoutes = {
     'company_verification.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin.verifications.index': { paramsTuple?: []; params?: {} }
+    'admin_verifications.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin_verifications.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'home': { paramsTuple?: []; params?: {} }
@@ -102,6 +110,9 @@ export type ScannedRoutes = {
     'company_verification.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dashboard': { paramsTuple?: []; params?: {} }
     'dashboard.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin.verifications.index': { paramsTuple?: []; params?: {} }
+    'admin_verifications.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin_verifications.document': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'application.store': { paramsTuple?: []; params?: {} }
@@ -126,6 +137,8 @@ export type ScannedRoutes = {
     'company_media.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'company_verification.submit': { paramsTuple?: []; params?: {} }
     'dashboard.update_status': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin_verifications.approve': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'admin_verifications.reject': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
 }
 declare module '@adonisjs/core/types/http' {

@@ -109,7 +109,7 @@ export class CompanyProfileSchema extends BaseModel {
 }
 
 export class CompanyVerificationSchema extends BaseModel {
-  static $columns = ['createdAt', 'id', 'registrationNumber', 'rejectionReason', 'reviewedAt', 'reviewedBy', 'status', 'submittedAt', 'updatedAt', 'userId'] as const
+  static $columns = ['createdAt', 'id', 'registrationNumber', 'rejectionReason', 'reviewedAt', 'reviewedBy', 'status', 'submittedAt', 'updatedAt', 'userId', 'verifiedIdentity'] as const
   $columns = CompanyVerificationSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -131,6 +131,8 @@ export class CompanyVerificationSchema extends BaseModel {
   declare updatedAt: DateTime | null
   @column()
   declare userId: number
+  @column()
+  declare verifiedIdentity: string | null
 }
 
 export class LoginCodeSchema extends BaseModel {
