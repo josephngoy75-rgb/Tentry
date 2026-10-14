@@ -1,0 +1,111 @@
+@layouts.app({ title: 'Examiner une demande' })
+  <div class="page">
+    <a href="/admin/verifications" class="table__sub">← Toutes les demandes</a>
+
+    <div class="page__header" style="margin-top: 12px;">
+      <div>
+        <h1 class="page__title">{{ company.companyName }}</h1>
+        <p class="page__description">
+          Demande envoyée le {{ verification.submittedAt.toFormat('dd/MM/yyyy HH:mm') }}
+        </p>
+      </div>
+      <div class="page__actions">
+        <span class="badge badge--{{ verification.status }}">{{ statuses[verification.status] }}</span>
+      </div>
+    </div>
+
+    <div class="detail">
+      <div class="panel">
+        <h2 class="section__title">Ce que déclare l'entreprise</h2>
+        <dl class="facts">
+          <div><dt>Nom</dt><dd>{{ company.companyName }}</dd></div>
+          <div><dt>Numéro d'enregistrement</dt><dd>{{ verification.registrationNumber }}</dd></div>
+          <div><dt>Adresse du profil</dt><dd>{{ address || '—' }}</dd></div>
+          <div><dt>Contact</dt><dd>{{ company.fullName }}</dd></div>
+          <div>
+            <dt>Email</dt>
+            <dd>
+              {{ company.email }}
+              @if(company.isEmailVerified)(confirmé)@else(non confirmé)@end
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="panel">
+        <h2 class="section__title">Justificatifs</h2>
+        <p class="section__description">
+          Vérifiez que le numéro, le nom et l'adresse des documents correspondent à ce qui est déclaré.
+        </p>
+        <dl class="facts">
+          <div>
+            <dt>{{ kinds.verif_registration.label }}</dt>
+            <dd>
+              @each((doc, index) in registrationDocs)
+                <a href="/admin/documents/{{ doc.id }}" target="_blank" rel="noopener noreferrer" class="il">
+                  Document {{ index + 1 }} ({{ doc.label }})
+                </a><br />
+              @end
+            </dd>
+          </div>
+          <div>
+            <dt>{{ kinds.verif_address.label }}</dt>
+            <dd>
+              @each((doc, index) in addressDocs)
+                <a href="/admin/documents/{{ doc.id }}" target="_blank" rel="noopener noreferrer" class="il">
+                  Document {{ index + 1 }} ({{ doc.label }})
+                </a><br />
+              @end
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      @if(verification.status === 'pending')
+        <div class="panel">
+          <h2 class="section__title">Approuver</h2>
+          <p class="section__description">
+            L'entreprise recevra le badge « Entreprise vérifiée ». Il sera retiré si elle change son
+            nom ou son adresse.
+          </p>
+          <form method="POST" action="/admin/verifications/{{ verification.id }}/approuver" class="form-section">
+            {{ csrfField() }}
+            <input type="hidden" name="seen" value="{{ seen }}" />
+            <div class="form-actions">
+              <button type="submit" class="btn btn--primary">Approuver la vérification</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h2 class="section__title">Refuser</h2>
+          <p class="section__description">Le motif est transmis à l'entreprise, qui pourra corriger sa demande.</p>
+          <form method="POST" action="/admin/verifications/{{ verification.id }}/refuser" class="form-section">
+            {{ csrfField() }}
+            @field.root({ name: 'reason' })
+              @!field.label({ text: 'Motif du refus *' })
+              @!textarea.control({
+                rows: '4',
+                class: 'field__input',
+                placeholder: "Ex. : le justificatif d'adresse date de plus de 3 mois.",
+              })
+              @!field.error()
+            @end
+            <div class="form-actions">
+              <button type="submit" class="btn btn--secondary">Refuser la demande</button>
+            </div>
+          </form>
+        </div>
+      @else
+        <div class="panel detail__wide">
+          <h2 class="section__title">Décision</h2>
+          <p class="section__description">
+            {{ statuses[verification.status] }}
+            @if(verification.reviewedAt)le {{ verification.reviewedAt.toFormat('dd/MM/yyyy HH:mm') }}@end.
+            @if(verification.rejectionReason)<br />Motif : {{ verification.rejectionReason }}@end
+          </p>
+        </div>
+      @end
+    </div>
+  </div>
+@end

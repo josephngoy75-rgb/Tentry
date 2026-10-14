@@ -1,0 +1,56 @@
+@layouts.app({ title: 'Vérifications' })
+  <div class="page">
+    <div class="page__header">
+      <div>
+        <h1 class="page__title">Vérifications d'entreprises</h1>
+        <p class="page__description">Examinez les justificatifs, puis approuvez ou refusez chaque demande.</p>
+      </div>
+    </div>
+
+    <div class="filters">
+      @each((label, key) in tabs)
+        <a
+          href="/admin/verifications?status={{ key }}"
+          class="btn btn--sm {{ status === key ? 'btn--primary' : 'btn--secondary' }}"
+        >
+          {{ label }} ({{ counts[key] }})
+        </a>
+      @end
+    </div>
+
+    @if(verifications.length)
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Entreprise</th>
+              <th>Numéro indiqué</th>
+              <th>Demande envoyée le</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(verification in verifications)
+              <tr>
+                <td>
+                  <div class="table__name">{{ companyNames[verification.userId] }}</div>
+                </td>
+                <td>{{ verification.registrationNumber }}</td>
+                <td>{{ verification.submittedAt.toFormat('dd/MM/yyyy HH:mm') }}</td>
+                <td>
+                  <a href="/admin/verifications/{{ verification.id }}" class="btn btn--secondary btn--sm">
+                    {{ status === 'pending' ? 'Examiner' : 'Voir' }}
+                  </a>
+                </td>
+              </tr>
+            @end
+          </tbody>
+        </table>
+      </div>
+    @else
+      <div class="panel" style="text-align: center; color: var(--muted);">
+        Aucune demande dans cette catégorie.
+      </div>
+    @end
+  </div>
+@end

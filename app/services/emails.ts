@@ -138,3 +138,50 @@ export function loginCodeEmail(input: {
   <p>Si vous n'êtes pas à l'origine de cette connexion, changez votre mot de passe immédiatement.</p>`),
   }
 }
+
+export function verificationDecisionEmail(input: {
+  to: string
+  name?: string | null
+  approved: boolean
+  reason?: string | null
+}): MailMessage {
+  const hello = greeting(input.name)
+  const link = appLink('/entreprise/verification')
+
+  if (input.approved) {
+    return {
+      to: input.to,
+      subject: 'Votre entreprise est vérifiée sur Talentry',
+      text: [
+        hello,
+        '',
+        'Bonne nouvelle : votre entreprise est vérifiée. Le badge « Entreprise vérifiée » apparaît sur vos offres.',
+        "Si vous modifiez ensuite le nom ou l'adresse de l'entreprise, la vérification sera à refaire.",
+      ].join('\n'),
+      html: wrap(`
+  <p>${escapeHtml(hello)}</p>
+  <p>Bonne nouvelle : votre entreprise est vérifiée. Le badge « Entreprise vérifiée » apparaît sur vos offres.</p>
+  <p>Si vous modifiez ensuite le nom ou l'adresse de l'entreprise, la vérification sera à refaire.</p>`),
+    }
+  }
+
+  const reason = (input.reason ?? '').trim() || 'Aucun motif précisé.'
+
+  return {
+    to: input.to,
+    subject: 'Votre demande de vérification Talentry a été refusée',
+    text: [
+      hello,
+      '',
+      "Votre demande de vérification n'a pas pu être acceptée.",
+      `Motif : ${reason}`,
+      '',
+      `Vous pouvez corriger et envoyer une nouvelle demande : ${link}`,
+    ].join('\n'),
+    html: wrap(`
+  <p>${escapeHtml(hello)}</p>
+  <p>Votre demande de vérification n'a pas pu être acceptée.</p>
+  <p><strong>Motif :</strong> ${escapeHtml(reason)}</p>
+  ${button(link, 'Envoyer une nouvelle demande')}`),
+  }
+}

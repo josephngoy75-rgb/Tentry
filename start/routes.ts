@@ -117,6 +117,12 @@ router
     router.post('/entreprise/profil/logo', [controllers.CompanyMedia, 'uploadLogo'])
     router.post('/entreprise/profil/photos', [controllers.CompanyMedia, 'uploadPhotos'])
     router.post('/entreprise/profil/medias/:id/supprimer', [controllers.CompanyMedia, 'destroy'])
+
+    router
+      .get('/entreprise/verification', [controllers.CompanyVerification, 'show'])
+      .as('company.verification.show')
+    router.post('/entreprise/verification', [controllers.CompanyVerification, 'submit'])
+    router.get('/entreprise/verification/documents/:id', [controllers.CompanyVerification, 'document'])
   })
   .use([middleware.auth(), middleware.role({ roles: ['company'] })])
 
@@ -130,5 +136,13 @@ router
     router.get('/dashboard', [controllers.Dashboard, 'index']).as('dashboard')
     router.get('/dashboard/:id', [controllers.Dashboard, 'show'])
     router.post('/dashboard/:id/status', [controllers.Dashboard, 'updateStatus'])
+
+    router
+      .get('/admin/verifications', [controllers.AdminVerifications, 'index'])
+      .as('admin.verifications.index')
+    router.get('/admin/verifications/:id', [controllers.AdminVerifications, 'show'])
+    router.post('/admin/verifications/:id/approuver', [controllers.AdminVerifications, 'approve'])
+    router.post('/admin/verifications/:id/refuser', [controllers.AdminVerifications, 'reject'])
+    router.get('/admin/documents/:id', [controllers.AdminVerifications, 'document'])
   })
   .use([middleware.auth(), middleware.role({ roles: ['admin'] })])

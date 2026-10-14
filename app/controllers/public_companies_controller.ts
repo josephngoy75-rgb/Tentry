@@ -5,6 +5,7 @@ import Offer from '#models/offer'
 import CompanyProfile from '#models/company_profile'
 import MediaFile from '#models/media_file'
 import { addressText, mapsSearchUrl } from '#services/maps'
+import { isCompanyVerified } from '#services/verified_companies'
 import { contractTypes, workModes } from '#config/offers'
 import { companySectors, companySizes, socialNetworks } from '#config/companies'
 
@@ -52,6 +53,7 @@ export default class PublicCompaniesController {
       offers,
       links,
       address,
+      verified: await isCompanyVerified(company.id),
       mapsUrl: mapsSearchUrl(address),
       sectorLabel: profile?.sector ? companySectors[profile.sector as keyof typeof companySectors] : null,
       sizeLabel: profile?.size ? companySizes[profile.size as keyof typeof companySizes] : null,
