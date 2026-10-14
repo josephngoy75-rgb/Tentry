@@ -24,3 +24,16 @@ export function identityKey(
 ): string {
   return [companyName, addressLine, city, country].map(normalizeIdentityPart).join('|')
 }
+
+/**
+ * Une vérification est-elle encore valable ?
+ * Il faut qu'elle ait été approuvée ET que l'identité actuelle de l'entreprise
+ * (nom + adresse) soit celle qui a été approuvée.
+ */
+export function isVerificationCurrent(
+  status: string | null | undefined,
+  verifiedIdentity: string | null | undefined,
+  currentIdentity: string
+): boolean {
+  return status === 'verified' && Boolean(verifiedIdentity) && verifiedIdentity === currentIdentity
+}

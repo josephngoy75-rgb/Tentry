@@ -19,7 +19,8 @@
           <h2 class="section__title">Entreprise vérifiée</h2>
           <p class="section__description">
             Vérifiée le {{ verification.reviewedAt ? verification.reviewedAt.toFormat('dd/MM/yyyy') : '—' }}.
-            Si vous modifiez le nom ou l'adresse de l'entreprise, la vérification sera à refaire.
+            Le badge est affiché sur vos offres. Si vous modifiez le nom ou l'adresse de
+            l'entreprise, il sera retiré jusqu'à une nouvelle vérification.
           </p>
         </div>
       @elseif(statusKey === 'pending')
@@ -37,6 +38,16 @@
             <p class="section__description">
               {{ verification.rejectionReason ?? 'Aucun motif précisé.' }}
               Vous pouvez corriger et envoyer une nouvelle demande.
+            </p>
+          </div>
+        @end
+
+        @if(statusKey === 'expired')
+          <div class="panel" style="border-color: #f59a0b;">
+            <h2 class="section__title">Vérification à renouveler</h2>
+            <p class="section__description">
+              Le nom ou l'adresse de l'entreprise a changé depuis votre vérification : le badge
+              n'est plus affiché. Envoyez une nouvelle demande avec des justificatifs à jour.
             </p>
           </div>
         @end

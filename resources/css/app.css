@@ -1358,3 +1358,7 @@ textarea.field__input {
   background: #fee2e2;
   color: #991b1b;
 }
+.badge--expired {
+  background: #fef3c7;
+  color: #92560a;
+}

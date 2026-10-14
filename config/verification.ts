@@ -8,6 +8,7 @@ export const verificationStatuses = {
   pending: "En cours d'examen",
   verified: 'Vérifiée',
   rejected: 'Refusée',
+  expired: 'À renouveler',
 } as const
 
 /**

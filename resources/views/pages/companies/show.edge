@@ -11,7 +11,14 @@
             class="h-20 w-20 shrink-0 rounded-xl border border-gray-200 bg-white object-contain p-1"
           />
         @end
-        <h1 class="text-3xl font-extrabold tracking-tight text-brand-dark">{{ company.companyName }}</h1>
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight text-brand-dark">{{ company.companyName }}</h1>
+          @if(verified)
+            <div class="mt-2">
+              @!verifiedBadge()
+            </div>
+          @end
+        </div>
       </div>
 
       <div class="mt-4 flex flex-wrap gap-2">

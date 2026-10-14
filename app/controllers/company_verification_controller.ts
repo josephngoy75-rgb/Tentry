@@ -5,6 +5,7 @@ import type { MultipartFile } from '@adonisjs/core/bodyparser'
 import CompanyProfile from '#models/company_profile'
 import CompanyVerification from '#models/company_verification'
 import MediaFile from '#models/media_file'
+import { identityKey, isVerificationCurrent } from '#services/company_identity'
 import { detectDocumentType, documentExtension, documentMime } from '#services/document_type'
 import type { DocumentType } from '#services/document_type'
 import { deleteUpload, readHead, saveUpload, uploadDir } from '#services/file_storage'
@@ -75,7 +76,20 @@ export default class CompanyVerificationController {
       await MediaFile.query().where('user_id', user.id).whereIn('kind', KINDS).orderBy('id', 'asc')
     ).map(describe)
 
-    const statusKey = (verification?.status ?? 'unverified') as VerificationStatus
+    // Approuvée mais nom ou adresse modifiés depuis : "à renouveler"
+    const identity = identityKey(
+      user.companyName,
+      profile?.addressLine,
+      profile?.city,
+      profile?.country
+    )
+    let statusKey = (verification?.status ?? 'unverified') as VerificationStatus
+    if (
+      verification?.status === 'verified' &&
+      !isVerificationCurrent(verification.status, verification.verifiedIdentity, identity)
+    ) {
+      statusKey = 'expired'
+    }
 
     return view.render('pages/company/verification/show', {
       verification,
@@ -108,8 +122,15 @@ export default class CompanyVerificationController {
       return back()
     }
 
+    // Une demande en cours, ou une vérification encore valable, ne se renvoie pas.
+    // Une vérification périmée (nom ou adresse modifiés) peut être renouvelée.
+    const identity = identityKey(user.companyName, profile.addressLine, profile.city, profile.country)
     const existing = await CompanyVerification.query().where('user_id', user.id).first()
-    if (existing && (existing.status === 'pending' || existing.status === 'verified')) {
+    if (
+      existing &&
+      (existing.status === 'pending' ||
+        isVerificationCurrent(existing.status, existing.verifiedIdentity, identity))
+    ) {
       session.flash('error', 'Une demande est déjà en cours ou acceptée.')
       return back()
     }
@@ -121,7 +142,7 @@ export default class CompanyVerificationController {
     const errors: Record<string, string> = {}
     if (!registrationNumber) {
       errors.registrationNumber =
-        "Numéro invalide : 3 à 50 caractères (lettres, chiffres, espaces et . / - _ °)."
+        'Numéro invalide : 3 à 50 caractères (lettres, chiffres, espaces et . / - _ °).'
     }
     if (registration.error) errors.registration = registration.error
     if (address.error) errors.address = address.error
@@ -132,7 +153,7 @@ export default class CompanyVerificationController {
       return back()
     }
 
-    // Tout est valide : on enregistre. Les anciens documents (demande refusée) sont retirés ensuite.
+    // Tout est valide : on enregistre. Les anciens documents sont retirés ensuite.
     const oldDocs = await MediaFile.query().where('user_id', user.id).whereIn('kind', KINDS)
 
     const batches = [
@@ -161,6 +182,7 @@ export default class CompanyVerificationController {
         reviewedAt: null,
         reviewedBy: null,
         rejectionReason: null,
+        verifiedIdentity: null,
       }
     )
 

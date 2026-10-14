@@ -4,6 +4,7 @@ import Offer from '#models/offer'
 import User from '#models/user'
 import CompanyProfile from '#models/company_profile'
 import { addressText, mapsSearchUrl } from '#services/maps'
+import { isCompanyVerified, verifiedCompanyIds } from '#services/verified_companies'
 import { contractTypes, workModes } from '#config/offers'
 import { educationLevels } from '#config/programs'
 
@@ -58,9 +59,15 @@ export default class PublicOffersController {
       companyNames[company.id] = company.companyName ?? company.fullName ?? 'Entreprise'
     }
 
+    // Entreprises dont la vérification est approuvée et encore valable
+    const verifiedIds = await verifiedCompanyIds(offers.map((offer) => offer.userId))
+    const verified: Record<number, boolean> = {}
+    for (const id of verifiedIds) verified[id] = true
+
     return view.render('pages/offers/index', {
       offers,
       companyNames,
+      verified,
       contractTypes,
       workModes,
       filters: { q: search, contract, mode },
@@ -83,6 +90,7 @@ export default class PublicOffersController {
     return view.render('pages/offers/show', {
       offer,
       companyName: company.companyName ?? company.fullName ?? 'Entreprise',
+      verified: await isCompanyVerified(company.id),
       address,
       mapsUrl: mapsSearchUrl(address),
       contractTypes,
